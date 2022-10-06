@@ -1,0 +1,18 @@
+import 'package:flutter/material.dart';
+
+import 'bias_text.dart';
+
+class BIASTitle extends StatelessWidget {
+  final String title;
+
+  const BIASTitle(this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    return BIASText(
+      title,
+      fontSize: 24,
+      fontWeight: FontWeight.w500,
+    );
+  }
+}

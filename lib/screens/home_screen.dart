@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       BottomNavigationBarItem(
                         icon: Icon(
                           CupertinoIcons.cube_box,
-                          size: 32,
+                          size: 24,
                         ),
                         label: '',
                       ),
@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             _currentIndex == 1
                                 ? CupertinoIcons.checkmark_alt_circle
                                 : CupertinoIcons.shopping_cart,
-                            size: 32,
+                            size: 28,
                             color: _currentIndex == 1
                                 ? Colors.white
                                 : kBIASDarkGrayColor,
@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       BottomNavigationBarItem(
                         icon: Icon(
                           CupertinoIcons.chart_pie,
-                          size: 32,
+                          size: 24,
                         ),
                         label: '',
                       ),

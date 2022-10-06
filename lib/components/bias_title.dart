@@ -11,7 +11,7 @@ class BIASTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return BIASText(
       title,
-      fontSize: 24,
+      fontSize: 18,
       fontWeight: FontWeight.w500,
     );
   }

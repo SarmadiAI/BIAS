@@ -58,23 +58,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-              child: Row(
-                children: [
-                  SearchTextField(onChanged: (value) {}),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 5),
-                    child: Icon(
-                      CupertinoIcons.arrow_up_arrow_down,
-                      color: kBIASDarkGrayColor,
-                      size: 24,
-                    ),
-                  ),
-                ],
-              ),
-            ),
             Expanded(
               child: ListView(children: [
                 SizedBox(height: 10),

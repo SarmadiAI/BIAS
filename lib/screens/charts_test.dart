@@ -138,17 +138,17 @@ class _ChartBoxState extends State<ChartBox> {
     double _numberHeight = MediaQuery.of(context).size.width / 10;
     double percentage = 12.7;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
       child: Container(
         width: double.infinity,
-        height: MediaQuery.of(context).size.height / 2.25 + _numberHeight,
+        height: MediaQuery.of(context).size.height / 3 + _numberHeight,
         decoration: BoxDecoration(
           color: Colors.white,
-          image: DecorationImage(
-            image: AssetImage('assets/images/bg_1.png'),
-            fit: BoxFit.cover,
-            alignment: Alignment.topCenter,
-          ),
+          // image: DecorationImage(
+          //   image: AssetImage('assets/images/bg_1.png'),
+          //   fit: BoxFit.cover,
+          //   alignment: Alignment.topCenter,
+          // ),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
@@ -156,151 +156,74 @@ class _ChartBoxState extends State<ChartBox> {
               blurRadius: 7, // changes position of shadow
             ),
           ],
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(0),
         ),
         child: Column(
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 23),
-              child: Column(
+              padding: const EdgeInsets.only(
+                  left: 20.0, right: 20, top: 23, bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BIASText(
-                        widget.title,
-                        color: Colors.grey,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      Icon(CupertinoIcons.ellipsis, color: kBIASLightGrayColor),
-                    ],
+                  BIASText(
+                    widget.title,
+                    color: kBIASLightGrayColor,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              BIASText(
-                                '${widget.value}',
-                                fontSize:
-                                    MediaQuery.of(context).size.width / 10,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              Visibility(
-                                visible: widget.isMoney,
-                                child: BIASText(
-                                  widget.valuePostfix,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
-                          ),
-                          currentState(
-                              isUp: widget.isUp, percentage: percentage),
-                        ],
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width / 2.5,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
-                              spreadRadius: 1,
-                              blurRadius: 7, // changes position of shadow
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          children: [
-                            ToggleTabBar(
-                              child: BIASText(
-                                'D',
-                                color: _toggleTabColor[0],
-                              ),
-                              backgroundColor: _toggleTabBackgroundColor[0],
-                              onTap: () {
-                                changeTabColors(0);
-                              },
-                            ),
-                            ToggleTabBar(
-                              child: BIASText(
-                                'W',
-                                color: _toggleTabColor[1],
-                              ),
-                              backgroundColor: _toggleTabBackgroundColor[1],
-                              onTap: () {
-                                changeTabColors(1);
-                              },
-                            ),
-                            ToggleTabBar(
-                              child: BIASText(
-                                'M',
-                                color: _toggleTabColor[2],
-                              ),
-                              backgroundColor: _toggleTabBackgroundColor[2],
-                              onTap: () {
-                                changeTabColors(2);
-                              },
-                            ),
-                            ToggleTabBar(
-                              child: BIASText(
-                                'Y',
-                                color: _toggleTabColor[3],
-                              ),
-                              backgroundColor: _toggleTabBackgroundColor[3],
-                              onTap: () {
-                                changeTabColors(3);
-                              },
-                            ),
-                            ToggleTabBar(
-                              child: Icon(
-                                Icons.calendar_today_outlined,
-                                color: _toggleTabColor[4],
-                                size: 17,
-                              ),
-                              backgroundColor: _toggleTabBackgroundColor[4],
-                              onTap: () {
-                                setState(() {
-                                  changeTabColors(4);
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  Icon(CupertinoIcons.ellipsis, color: kBIASLightGrayColor),
                 ],
               ),
             ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                child: SfCartesianChart(
-                  primaryXAxis: CategoryAxis(),
-                  tooltipBehavior: TooltipBehavior(enable: true),
-                  series: <ChartSeries<_Data, String>>[
-                    LineSeries<_Data, String>(
-                      dataSource: widget.data,
-                      xValueMapper: (_Data sales, _) => sales.x,
-                      yValueMapper: (_Data sales, _) => sales.y[0],
-                      name: 'Revenue',
-                      dataLabelSettings: DataLabelSettings(isVisible: true),
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            BIASText(
+                              '${widget.value}',
+                              fontSize: MediaQuery.of(context).size.width / 22,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            Visibility(
+                              visible: widget.isMoney,
+                              child: BIASText(
+                                widget.valuePostfix,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(width: 10),
+                        currentState(isUp: widget.isUp, percentage: percentage),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  SfCartesianChart(
+                    primaryXAxis: CategoryAxis(),
+                    primaryYAxis: NumericAxis(
+                      rangePadding: ChartRangePadding.additional,
+                      isVisible: false,
+                    ),
+                    tooltipBehavior: TooltipBehavior(enable: true),
+                    series: <ChartSeries<_Data, String>>[
+                      LineSeries<_Data, String>(
+                        dataSource: widget.data,
+                        xValueMapper: (_Data sales, _) => sales.x,
+                        yValueMapper: (_Data sales, _) => sales.y[0],
+                        name: 'Revenue',
+                        dataLabelSettings: DataLabelSettings(isVisible: true),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],

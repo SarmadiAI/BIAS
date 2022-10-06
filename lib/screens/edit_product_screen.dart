@@ -49,15 +49,30 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         BIASHeading('Edit Product'),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(
-                            CupertinoIcons.arrow_right,
-                            color: kBIASDarkGrayColor,
-                            size: 28,
-                          ),
+                        Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                showDataAlert();
+                              },
+                              child: Icon(
+                                CupertinoIcons.trash,
+                                color: kBIASRedColor,
+                                size: 28,
+                              ),
+                            ),
+                            SizedBox(width: 15),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Icon(
+                                CupertinoIcons.arrow_right,
+                                color: kBIASDarkGrayColor,
+                                size: 28,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -156,6 +171,111 @@ class _EditProductScreenState extends State<EditProductScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  showDataAlert() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                20.0,
+              ),
+            ),
+          ),
+          contentPadding: EdgeInsets.only(
+            top: 10.0,
+          ),
+          title: BIASTitle(
+            'Delete Product',
+          ),
+          content: Container(
+            height: 190,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: BIASText(
+                      "Are you sure you want to delete this product?",
+                      fontSize: 15,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        InkWell(
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: kBIASRedColor.withOpacity(0.9),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: BIASText(
+                                'Go Back',
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: kBIASLightGrayColor.withOpacity(0.9),
+                                width: 1.5,
+                              ),
+                            ),
+                            child: Center(
+                              child: BIASText(
+                                'Delete',
+                                color: kBIASLightGrayColor.withOpacity(0.9),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: BIASText('Note'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: BIASText(
+                      'Deleting a product means that its trace will be gone forever from the database, this will cause data to be never retrieved back or analyzed. Be Careful.',
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

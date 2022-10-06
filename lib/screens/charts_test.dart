@@ -230,6 +230,9 @@ class _ChartBoxState extends State<ChartBox> {
                                 color: _toggleTabColor[0],
                               ),
                               backgroundColor: _toggleTabBackgroundColor[0],
+                              onTap: () {
+                                changeTabColors(0);
+                              },
                             ),
                             ToggleTabBar(
                               child: BIASText(
@@ -237,6 +240,9 @@ class _ChartBoxState extends State<ChartBox> {
                                 color: _toggleTabColor[1],
                               ),
                               backgroundColor: _toggleTabBackgroundColor[1],
+                              onTap: () {
+                                changeTabColors(1);
+                              },
                             ),
                             ToggleTabBar(
                               child: BIASText(
@@ -244,6 +250,9 @@ class _ChartBoxState extends State<ChartBox> {
                                 color: _toggleTabColor[2],
                               ),
                               backgroundColor: _toggleTabBackgroundColor[2],
+                              onTap: () {
+                                changeTabColors(2);
+                              },
                             ),
                             ToggleTabBar(
                               child: BIASText(
@@ -251,6 +260,9 @@ class _ChartBoxState extends State<ChartBox> {
                                 color: _toggleTabColor[3],
                               ),
                               backgroundColor: _toggleTabBackgroundColor[3],
+                              onTap: () {
+                                changeTabColors(3);
+                              },
                             ),
                             ToggleTabBar(
                               child: Icon(
@@ -259,7 +271,11 @@ class _ChartBoxState extends State<ChartBox> {
                                 size: 17,
                               ),
                               backgroundColor: _toggleTabBackgroundColor[4],
-                              onTap: () {},
+                              onTap: () {
+                                setState(() {
+                                  changeTabColors(4);
+                                });
+                              },
                             ),
                           ],
                         ),
@@ -291,6 +307,15 @@ class _ChartBoxState extends State<ChartBox> {
         ),
       ),
     );
+  }
+
+  void changeTabColors(int index) {
+    for (int i = 0; i < 5; i++) {
+      _toggleTabColor[i] = kBIASLightGrayColor;
+      _toggleTabBackgroundColor[i] = Colors.white;
+    }
+    _toggleTabColor[index] = kBIASBlueColor;
+    _toggleTabBackgroundColor[index] = kBIASBlueColor.withOpacity(0.3);
   }
 }
 

@@ -64,12 +64,12 @@ class _ProductInventoryCardState extends State<ProductInventoryCard> {
                         children: [
                           BIASText(
                             widget.title ?? 'Water Container Refilling',
-                            fontSize: 13,
+                            fontSize: 14,
                           ),
                           BIASText(
                             widget.subtitle ?? '20L',
                             color: kBIASLightGrayColor,
-                            fontSize: 11,
+                            fontSize: 12,
                             fontWeight: FontWeight.w500,
                           ),
                         ],
@@ -80,21 +80,21 @@ class _ProductInventoryCardState extends State<ProductInventoryCard> {
                           BIASText(
                             'Show Details',
                             color: kBIASBlueColor,
-                            fontSize: 11,
+                            fontSize: 12,
                           ),
                           SizedBox(
                               width: MediaQuery.of(context).size.width / 15),
                           BIASText(
                             'Qty. 523',
                             color: kBIASLightGrayColor,
-                            fontSize: 12,
+                            fontSize: 13,
                           ),
                           SizedBox(
                               width: MediaQuery.of(context).size.width / 15),
                           BIASText(
                             'Sold 322',
                             color: kBIASLightGrayColor,
-                            fontSize: 12,
+                            fontSize: 13,
                           ),
                         ],
                       ),

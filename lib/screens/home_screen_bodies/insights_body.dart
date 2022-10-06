@@ -38,10 +38,13 @@ class _InsightsBodyState extends State<InsightsBody> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       BIASHeading('Insights'),
-                      Icon(
-                        Icons.settings_outlined,
-                        color: kBIASDarkGrayColor,
-                        size: 28,
+                      Visibility(
+                        visible: false,
+                        child: Icon(
+                          Icons.settings_outlined,
+                          color: kBIASDarkGrayColor,
+                          size: 28,
+                        ),
                       ),
                     ],
                   ),

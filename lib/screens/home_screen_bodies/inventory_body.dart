@@ -43,10 +43,13 @@ class _InventoryBodyState extends State<InventoryBody> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       BIASHeading('Inventory'),
-                      Icon(
-                        Icons.settings_outlined,
-                        color: kBIASDarkGrayColor,
-                        size: 28,
+                      Visibility(
+                        visible: false,
+                        child: Icon(
+                          Icons.settings_outlined,
+                          color: kBIASDarkGrayColor,
+                          size: 28,
+                        ),
                       ),
                     ],
                   ),

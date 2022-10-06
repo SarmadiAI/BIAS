@@ -41,10 +41,13 @@ class _CurrentOrderBodyState extends State<CurrentOrderBody> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       BIASHeading('Current Order'),
-                      Icon(
-                        Icons.settings_outlined,
-                        color: kBIASDarkGrayColor,
-                        size: 28,
+                      Visibility(
+                        visible: false,
+                        child: Icon(
+                          Icons.settings_outlined,
+                          color: kBIASDarkGrayColor,
+                          size: 28,
+                        ),
                       ),
                     ],
                   ),

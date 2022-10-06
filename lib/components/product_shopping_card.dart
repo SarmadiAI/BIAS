@@ -61,12 +61,12 @@ class _ProductShoppingCardState extends State<ProductShoppingCard> {
                       children: [
                         BIASText(
                           widget.title,
-                          fontSize: 13,
+                          fontSize: 14,
                         ),
                         BIASText(
                           widget.subtitle ?? '',
                           color: kBIASLightGrayColor,
-                          fontSize: 11,
+                          fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),
                       ],
@@ -78,7 +78,7 @@ class _ProductShoppingCardState extends State<ProductShoppingCard> {
                           width: 100,
                           child: BIASText(
                             '$_totalPrice JOD',
-                            fontSize: 12,
+                            fontSize: 13,
                           ),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width / 15),

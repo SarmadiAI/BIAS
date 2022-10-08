@@ -99,7 +99,39 @@ class _ProductInfoScreenState extends State<ProductInfoScreen> {
                       BIASStaticTextField(
                           labelText: 'Product Subtitle (Description)'),
                       SizedBox(height: 15),
-                      BIASStaticTextField(labelText: 'Quantity'),
+                      Row(
+                        children: [
+                          Expanded(
+                              flex: 2,
+                              child:
+                                  BIASStaticTextField(labelText: 'Quantity')),
+                          SizedBox(width: 8),
+                          Expanded(
+                            flex: 1,
+                            child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: kBIASBlueColor.withOpacity(0.9),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 17),
+                                  child: Center(
+                                    child: BIASText(
+                                      'Add Quantity',
+                                      color: Colors.white,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: 15),
                       BIASStaticTextField(labelText: 'Section'),
                       SizedBox(height: 20),

@@ -161,11 +161,11 @@ class _CardBoxState extends State<CardBox> {
         height: MediaQuery.of(context).size.height / 9 + _numberHeight,
         decoration: BoxDecoration(
           color: Colors.white,
-          image: DecorationImage(
-            image: AssetImage('assets/images/bg_1.png'),
-            fit: BoxFit.cover,
-            alignment: Alignment.topCenter,
-          ),
+          // image: DecorationImage(
+          //   image: AssetImage('assets/images/bg_1.png'),
+          //   fit: BoxFit.cover,
+          //   alignment: Alignment.topCenter,
+          // ),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
@@ -265,11 +265,11 @@ class _DoughnutChartBoxState extends State<DoughnutChartBox> {
         height: MediaQuery.of(context).size.height / 3 + _numberHeight,
         decoration: BoxDecoration(
           color: Colors.white,
-          image: DecorationImage(
-            image: AssetImage('assets/images/bg_1.png'),
-            fit: BoxFit.cover,
-            alignment: Alignment.topCenter,
-          ),
+          // image: DecorationImage(
+          //   image: AssetImage('assets/images/bg_1.png'),
+          //   fit: BoxFit.cover,
+          //   alignment: Alignment.topCenter,
+          // ),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
@@ -342,11 +342,11 @@ class _ColumnChartBoxState extends State<ColumnChartBox> {
         height: MediaQuery.of(context).size.height / 3 + _numberHeight,
         decoration: BoxDecoration(
           color: Colors.white,
-          image: DecorationImage(
-            image: AssetImage('assets/images/bg_1.png'),
-            fit: BoxFit.cover,
-            alignment: Alignment.topCenter,
-          ),
+          // image: DecorationImage(
+          //   image: AssetImage('assets/images/bg_1.png'),
+          //   fit: BoxFit.cover,
+          //   alignment: Alignment.topCenter,
+          // ),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
@@ -450,11 +450,11 @@ class _LineChartBoxState extends State<LineChartBox> {
         height: MediaQuery.of(context).size.height / 3 + _numberHeight,
         decoration: BoxDecoration(
           color: Colors.white,
-          image: DecorationImage(
-            image: AssetImage('assets/images/bg_1.png'),
-            fit: BoxFit.cover,
-            alignment: Alignment.topCenter,
-          ),
+          // image: DecorationImage(
+          //   image: AssetImage('assets/images/bg_1.png'),
+          //   fit: BoxFit.cover,
+          //   alignment: Alignment.topCenter,
+          // ),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),

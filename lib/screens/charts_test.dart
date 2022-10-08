@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import '../components/bias_text.dart';
+import '../components/charts/data.dart';
+import '../components/charts/line_chart.dart';
 import '../constants.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 
@@ -16,14 +18,14 @@ class ChartsTest extends StatefulWidget {
 }
 
 class _ChartsTestState extends State<ChartsTest> {
-  List<_Data> data = [
-    _Data('24 Sep - Sat', [9]),
-    _Data('25 Sep - Sun', [24]),
-    _Data('26 Sep - Mon', [34]),
-    _Data('27 Sep - Tue', [13]),
-    _Data('28 Sep - Wed', [30]),
-    _Data('29 Sep - Thu', [45]),
-    _Data('30 Sep - Fri', [11])
+  List<ChartData> data = [
+    ChartData('24 Sep - Sat', [9]),
+    ChartData('25 Sep - Sun', [24]),
+    ChartData('26 Sep - Mon', [34]),
+    ChartData('27 Sep - Tue', [13]),
+    ChartData('28 Sep - Wed', [30]),
+    ChartData('29 Sep - Thu', [45]),
+    ChartData('30 Sep - Fri', [11])
   ];
   @override
   Widget build(BuildContext context) {
@@ -94,7 +96,7 @@ class FilterBox extends StatelessWidget {
 }
 
 class ChartBox extends StatefulWidget {
-  final List<_Data> data;
+  final List<ChartData> data;
   final String title;
   final double value;
   final bool isUp;
@@ -117,22 +119,6 @@ class ChartBox extends StatefulWidget {
 }
 
 class _ChartBoxState extends State<ChartBox> {
-  int _tabIndexSelected = 0;
-  List<Color> _toggleTabColor = [
-    kBIASBlueColor,
-    kBIASLightGrayColor,
-    kBIASLightGrayColor,
-    kBIASLightGrayColor,
-    kBIASLightGrayColor,
-  ];
-  List<Color> _toggleTabBackgroundColor = [
-    kBIASBlueColor.withOpacity(0.3),
-    Colors.white,
-    Colors.white,
-    Colors.white,
-    Colors.white,
-  ];
-
   @override
   Widget build(BuildContext context) {
     double _numberHeight = MediaQuery.of(context).size.width / 10;
@@ -144,11 +130,11 @@ class _ChartBoxState extends State<ChartBox> {
         height: MediaQuery.of(context).size.height / 3 + _numberHeight,
         decoration: BoxDecoration(
           color: Colors.white,
-          // image: DecorationImage(
-          //   image: AssetImage('assets/images/bg_1.png'),
-          //   fit: BoxFit.cover,
-          //   alignment: Alignment.topCenter,
-          // ),
+          image: DecorationImage(
+            image: AssetImage('assets/images/bg_1.png'),
+            fit: BoxFit.cover,
+            alignment: Alignment.topCenter,
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
@@ -206,70 +192,11 @@ class _ChartBoxState extends State<ChartBox> {
                       ],
                     ),
                   ),
-                  SfCartesianChart(
-                    primaryXAxis: CategoryAxis(),
-                    primaryYAxis: NumericAxis(
-                      rangePadding: ChartRangePadding.additional,
-                      isVisible: false,
-                    ),
-                    tooltipBehavior: TooltipBehavior(enable: true),
-                    series: <ChartSeries<_Data, String>>[
-                      LineSeries<_Data, String>(
-                        dataSource: widget.data,
-                        xValueMapper: (_Data sales, _) => sales.x,
-                        yValueMapper: (_Data sales, _) => sales.y[0],
-                        name: 'Revenue',
-                        dataLabelSettings: DataLabelSettings(isVisible: true),
-                      ),
-                    ],
-                  ),
+                  LineChart(widget: widget),
                 ],
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  void changeTabColors(int index) {
-    for (int i = 0; i < 5; i++) {
-      _toggleTabColor[i] = kBIASLightGrayColor;
-      _toggleTabBackgroundColor[i] = Colors.white;
-    }
-    _toggleTabColor[index] = kBIASBlueColor;
-    _toggleTabBackgroundColor[index] = kBIASBlueColor.withOpacity(0.3);
-  }
-}
-
-class ToggleTabBar extends StatelessWidget {
-  final Widget child;
-  final Color? backgroundColor;
-  final void Function()? onTap;
-
-  const ToggleTabBar({
-    required this.child,
-    this.backgroundColor,
-    this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(2),
-        child: InkWell(
-          onTap: onTap,
-          child: Container(
-            decoration: BoxDecoration(
-              color: backgroundColor ?? kBIASBlueColor.withOpacity(0.3),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Center(child: child),
-            ),
-          ),
         ),
       ),
     );
@@ -338,11 +265,4 @@ class DownState extends StatelessWidget {
       ],
     );
   }
-}
-
-class _Data {
-  _Data(this.x, this.y);
-
-  final String x;
-  final List<double> y;
 }

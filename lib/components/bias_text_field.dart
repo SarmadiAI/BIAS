@@ -1,5 +1,4 @@
 import 'package:bias/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -11,14 +10,16 @@ class BIASTextField extends StatefulWidget {
   final bool? isIntegerNumber;
   final bool? isFloatNumber;
   final String? innerText;
-  // final Function(String)? onChanged;
+  final TextEditingController controller;
 
   const BIASTextField({
+    super.key,
     required this.labelText,
     this.obscureText,
     this.isIntegerNumber,
     this.isFloatNumber,
     this.innerText,
+    required this.controller,
   });
 
   @override
@@ -27,15 +28,14 @@ class BIASTextField extends StatefulWidget {
 
 class _BIASTextFieldState extends State<BIASTextField> {
   late bool colorVisibility;
-  late TextEditingController controller;
 
   @override
   void initState() {
     super.initState();
-    controller = TextEditingController(text: widget.innerText ?? '');
+    widget.controller.text = widget.innerText ?? '';
     colorVisibility = widget.innerText != '';
     setState(() {
-      if (this.controller.text == '') {
+      if (widget.controller.text == '') {
         colorVisibility = false;
       } else {
         colorVisibility = true;
@@ -49,7 +49,7 @@ class _BIASTextFieldState extends State<BIASTextField> {
       child: Focus(
         onFocusChange: (isFocus) {
           setState(() {
-            if (this.controller.text == '') {
+            if (widget.controller.text == '') {
               colorVisibility = false;
             } else {
               colorVisibility = true;
@@ -57,7 +57,7 @@ class _BIASTextFieldState extends State<BIASTextField> {
           });
         },
         child: TextField(
-          controller: controller,
+          controller: widget.controller,
           keyboardType: ((widget.isFloatNumber ?? false) ||
                   (widget.isIntegerNumber ?? false))
               ? TextInputType.number
@@ -70,7 +70,7 @@ class _BIASTextFieldState extends State<BIASTextField> {
               : (widget.isIntegerNumber ?? false)
                   ? [FilteringTextInputFormatter.digitsOnly]
                   : null,
-          style: TextStyle(
+          style: const TextStyle(
             color: kBIASDarkGrayColor,
             fontSize: 14,
             fontWeight: FontWeight.w400,
@@ -86,11 +86,11 @@ class _BIASTextFieldState extends State<BIASTextField> {
               }
             });
           },
-          obscureText: this.widget.obscureText ?? false,
+          obscureText: widget.obscureText ?? false,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 22, horizontal: 15),
-            labelText: this.widget.labelText,
+            labelText: widget.labelText,
             labelStyle: TextStyle(
               color: colorVisibility
                   ? kBIASBlueColor

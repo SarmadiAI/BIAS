@@ -84,54 +84,54 @@ class _EditProductScreenState extends State<EditProductScreen> {
               child: ListView(children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 10),
-                      BIASTitle('Required Fields'),
-                      BIASSubtitle(
-                          'Essensial fields you need to input to get basic insights'),
-                      SizedBox(height: 20),
-                      BIASTextField(
-                        labelText: 'Product Title (Brand)',
-                        innerText: 'Water Bottle',
-                      ),
-                      SizedBox(height: 15),
-                      BIASTextField(
-                          labelText: 'Product Subtitle (Description)'),
-                      SizedBox(height: 15),
-                      BIASTextField(
-                          labelText: 'Quantity', isIntegerNumber: true),
-                      SizedBox(height: 15),
-                      BIASDropdownList(
-                        labelText: 'Section',
-                        list: [
-                          'Water Container Refillings',
-                          'Water Bottles',
-                          'Other'
-                        ],
-                      ),
-                      SizedBox(height: 30),
-                      BIASTitle('Optional Fields'),
-                      BIASSubtitle('Gain more deeper insights and predictions'),
-                      SizedBox(height: 20),
-                      BIASTextField(
-                          labelText: 'Supplier Price (Cost)',
-                          isFloatNumber: true),
-                      SizedBox(height: 15),
-                      BIASTextField(
-                          labelText: 'Retail/Selling Price',
-                          isFloatNumber: true),
-                      SizedBox(height: 15),
-                      BIASDateField(labelText: 'Expiration Date'),
-                      SizedBox(height: 15),
-                      BIASTextField(
-                          labelText: 'Re-shipping Days', isIntegerNumber: true),
-                      SizedBox(height: 15),
-                      BIASImageField(labelText: 'Image'),
-                      SizedBox(height: 20),
-                    ],
-                  ),
+                  // child: Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     SizedBox(height: 10),
+                  //     BIASTitle('Required Fields'),
+                  //     BIASSubtitle(
+                  //         'Essensial fields you need to input to get basic insights'),
+                  //     SizedBox(height: 20),
+                  //     BIASTextField(
+                  //       labelText: 'Product Title (Brand)',
+                  //       innerText: 'Water Bottle',
+                  //     ),
+                  //     SizedBox(height: 15),
+                  //     BIASTextField(
+                  //         labelText: 'Product Subtitle (Description)'),
+                  //     SizedBox(height: 15),
+                  //     BIASTextField(
+                  //         labelText: 'Quantity', isIntegerNumber: true),
+                  //     SizedBox(height: 15),
+                  //     BIASDropdownList(
+                  //       labelText: 'Section',
+                  //       list: [
+                  //         'Water Container Refillings',
+                  //         'Water Bottles',
+                  //         'Other'
+                  //       ],
+                  //     ),
+                  //     SizedBox(height: 30),
+                  //     BIASTitle('Optional Fields'),
+                  //     BIASSubtitle('Gain more deeper insights and predictions'),
+                  //     SizedBox(height: 20),
+                  //     BIASTextField(
+                  //         labelText: 'Supplier Price (Cost)',
+                  //         isFloatNumber: true),
+                  //     SizedBox(height: 15),
+                  //     BIASTextField(
+                  //         labelText: 'Retail/Selling Price',
+                  //         isFloatNumber: true),
+                  //     SizedBox(height: 15),
+                  //     BIASDateField(labelText: 'Expiration Date'),
+                  //     SizedBox(height: 15),
+                  //     BIASTextField(
+                  //         labelText: 'Re-shipping Days', isIntegerNumber: true),
+                  //     SizedBox(height: 15),
+                  //     BIASImageField(labelText: 'Image'),
+                  //     SizedBox(height: 20),
+                  //   ],
+                  // ),
                 ),
               ]),
             ),

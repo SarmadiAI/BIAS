@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import '../constants.dart';
 import 'bias_text.dart';
@@ -8,16 +7,19 @@ import 'bias_text.dart';
 class ProductInventoryCard extends StatefulWidget {
   final String? title;
   final String? subtitle;
-  final double? price;
+  final int? availableQuantity;
+  final int? soldQuantity;
   final ImageProvider<Object>? image;
   final void Function()? onTap;
 
   const ProductInventoryCard({
-    this.title,
-    this.subtitle,
-    this.price,
-    this.image,
-    this.onTap,
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.availableQuantity,
+    required this.soldQuantity,
+    required this.image,
+    required this.onTap,
   });
 
   @override
@@ -43,7 +45,7 @@ class _ProductInventoryCardState extends State<ProductInventoryCard> {
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 0,
                 blurRadius: 3.5,
-                offset: Offset(0, 0), // changes position of shadow
+                offset: const Offset(0, 0), // changes position of shadow
               ),
             ],
           ),
@@ -77,7 +79,7 @@ class _ProductInventoryCardState extends State<ProductInventoryCard> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          BIASText(
+                          const BIASText(
                             'Show Details',
                             color: kBIASBlueColor,
                             fontSize: 12,
@@ -85,14 +87,14 @@ class _ProductInventoryCardState extends State<ProductInventoryCard> {
                           SizedBox(
                               width: MediaQuery.of(context).size.width / 15),
                           BIASText(
-                            'Qty. 523',
+                            'Qty. ${widget.availableQuantity}',
                             color: kBIASLightGrayColor,
                             fontSize: 13,
                           ),
                           SizedBox(
                               width: MediaQuery.of(context).size.width / 15),
                           BIASText(
-                            'Sold 322',
+                            'Sold ${widget.soldQuantity}',
                             color: kBIASLightGrayColor,
                             fontSize: 13,
                           ),
@@ -109,7 +111,8 @@ class _ProductInventoryCardState extends State<ProductInventoryCard> {
                       color: CupertinoColors.extraLightBackgroundGray,
                       image: DecorationImage(
                         image: widget.image ??
-                            AssetImage('assets/images/water_container.png'),
+                            const AssetImage(
+                                'assets/images/water_container.png'),
                         fit: BoxFit.cover,
                         alignment: Alignment.topCenter,
                       )),

@@ -1,5 +1,4 @@
 import 'package:bias/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -8,10 +7,12 @@ import 'input_border.dart';
 class BIASDateField extends StatefulWidget {
   final String labelText;
   final bool? readOnly;
-
+  final TextEditingController controller;
   const BIASDateField({
+    super.key,
     required this.labelText,
     this.readOnly,
+    required this.controller,
   });
 
   @override
@@ -20,7 +21,6 @@ class BIASDateField extends StatefulWidget {
 
 class _BIASDateFieldState extends State<BIASDateField> {
   bool colorVisibility = false;
-  TextEditingController dateInput = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _BIASDateFieldState extends State<BIASDateField> {
       child: Focus(
         onFocusChange: (isFocus) {
           setState(() {
-            if (this.dateInput.text == '') {
+            if (widget.controller.text == '') {
               colorVisibility = false;
             } else {
               colorVisibility = true;
@@ -36,13 +36,13 @@ class _BIASDateFieldState extends State<BIASDateField> {
           });
         },
         child: TextField(
-          controller: dateInput,
+          controller: widget.controller,
           readOnly: true,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 22, horizontal: 15),
             prefixIconColor: kBIASRedColor,
-            labelText: this.widget.labelText,
+            labelText: widget.labelText,
             labelStyle: TextStyle(
               color: colorVisibility
                   ? kBIASBlueColor
@@ -68,20 +68,19 @@ class _BIASDateFieldState extends State<BIASDateField> {
                       primaryColor: kBIASBlueColor.withOpacity(0.9),
                       colorScheme: ColorScheme.light(
                           primary: kBIASBlueColor.withOpacity(0.9)),
-                      buttonTheme:
-                          ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                      buttonTheme: const ButtonThemeData(
+                          textTheme: ButtonTextTheme.primary),
                     ),
                     child: child!,
                   );
                 });
 
             if (pickedDate != null) {
-              print(pickedDate);
               String formattedDate =
                   DateFormat('yyyy-MM-dd').format(pickedDate);
 
               setState(() {
-                dateInput.text = formattedDate;
+                widget.controller.text = formattedDate;
               });
             }
           },

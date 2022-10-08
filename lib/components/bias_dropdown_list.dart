@@ -1,5 +1,4 @@
 import 'package:bias/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'input_border.dart';
@@ -7,8 +6,15 @@ import 'input_border.dart';
 class BIASDropdownList extends StatefulWidget {
   final String labelText;
   final List<String> list;
+  final String? controller;
+  final Function onChange;
 
-  const BIASDropdownList({required this.labelText, required this.list});
+  const BIASDropdownList(
+      {super.key,
+      required this.labelText,
+      required this.list,
+      required this.controller,
+      required this.onChange});
 
   @override
   State<BIASDropdownList> createState() => _BIASDropdownListState();
@@ -16,7 +22,6 @@ class BIASDropdownList extends StatefulWidget {
 
 class _BIASDropdownListState extends State<BIASDropdownList> {
   bool colorVisibility = false;
-  late String _currentSelectedValue = widget.list[0];
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +37,7 @@ class _BIASDropdownListState extends State<BIASDropdownList> {
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 22, horizontal: 15),
             prefixIconColor: kBIASRedColor,
-            labelText: this.widget.labelText,
+            labelText: widget.labelText,
             labelStyle: TextStyle(
               color: colorVisibility
                   ? kBIASBlueColor
@@ -55,7 +60,7 @@ class _BIASDropdownListState extends State<BIASDropdownList> {
                 fontWeight: FontWeight.w400,
                 fontFamily: 'Poppins',
               ),
-              value: _currentSelectedValue,
+              value: widget.controller,
               isDense: true,
               icon: Icon(
                 Icons.expand_more,
@@ -63,10 +68,8 @@ class _BIASDropdownListState extends State<BIASDropdownList> {
                     ? kBIASDarkGrayColor
                     : kBIASLightGrayColor.withOpacity(0.7),
               ),
-              onChanged: (newValue) {
-                setState(() {
-                  _currentSelectedValue = newValue!;
-                });
+              onChanged: (value) {
+                widget.onChange(value);
               },
               items: widget.list.map((String value) {
                 return DropdownMenuItem<String>(

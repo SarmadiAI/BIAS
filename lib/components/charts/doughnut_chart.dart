@@ -3,6 +3,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../screens/charts_test.dart';
 import 'chart_data.dart';
+import 'doughnut_chart_box.dart';
 
 class DoughnutChart extends StatelessWidget {
   const DoughnutChart({

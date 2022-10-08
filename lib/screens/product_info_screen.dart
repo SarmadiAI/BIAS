@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../components/bias_static_image_field.dart';
 import '../components/bias_static_text_field.dart';
+import '../components/bias_text.dart';
 
 class ProductInfoScreen extends StatefulWidget {
   final int? itemId;
@@ -81,7 +82,7 @@ class ProductInfoScreenState extends State<ProductInfoScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       SizedBox(height: 10),
                       SizedBox(height: 20),
                       BIASStaticTextField(

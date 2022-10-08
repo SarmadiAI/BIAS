@@ -1,4 +1,5 @@
 import 'package:bias/screens/charts_test.dart';
+import 'package:bias/screens/dashboards/sales_dashboard_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,8 @@ import '../../components/dashboard_container.dart';
 import '../../components/bias_heading.dart';
 import '../../components/bias_title.dart';
 import '../../constants.dart';
+import '../dashboards/customers_dashboard_screen.dart';
+import '../financial_dashboards_screen.dart';
 
 class InsightsBody extends StatefulWidget {
   const InsightsBody({Key? key}) : super(key: key);
@@ -53,33 +56,31 @@ class _InsightsBodyState extends State<InsightsBody> {
             ),
           ),
           SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-            child: BIASTitle('Featured Dashboards'),
-          ),
-          Container(
-            height: 190,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                SizedBox(width: 20),
-                DashboardContainer(
-                  onTap: () {
-                    Navigator.pushNamed(context, ChartsTest.id);
-                  },
-                  title: 'Your Progress\nThis Week!',
-                  image: AssetImage('assets/images/patterns/pattern_1.png'),
-                ),
-                SizedBox(width: 10),
-                DashboardContainer(
-                  title: 'Your Progress\nThis Month!',
-                  image: AssetImage('assets/images/patterns/pattern_2.png'),
-                ),
-                SizedBox(width: 20),
-              ],
-            ),
-          ),
-          SizedBox(height: 10),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          //   child: BIASTitle('Featured Dashboards'),
+          // ),
+          // Container(
+          //   height: 190,
+          //   child: ListView(
+          //     scrollDirection: Axis.horizontal,
+          //     children: [
+          //       SizedBox(width: 20),
+          //       DashboardContainer(
+          //         onTap: () => Navigator.pushNamed(context, ChartsTest.id),
+          //         title: 'Your Progress\nThis Week!',
+          //         image: AssetImage('assets/images/patterns/pattern_1.png'),
+          //       ),
+          //       SizedBox(width: 10),
+          //       DashboardContainer(
+          //         title: 'Your Progress\nThis Month!',
+          //         image: AssetImage('assets/images/patterns/pattern_2.png'),
+          //       ),
+          //       SizedBox(width: 20),
+          //     ],
+          //   ),
+          // ),
+          // SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
             child: BIASTitle('Dashboards'),
@@ -91,6 +92,8 @@ class _InsightsBodyState extends State<InsightsBody> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: DashboardContainer(
+                    onTap: () =>
+                        Navigator.pushNamed(context, SalesDashboardScreen.id),
                     title: 'Sales\nDashboard',
                     image: AssetImage('assets/images/patterns/pattern_3.png'),
                   ),
@@ -99,7 +102,9 @@ class _InsightsBodyState extends State<InsightsBody> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: DashboardContainer(
-                    title: 'Products\nDashboard',
+                    onTap: () => Navigator.pushNamed(
+                        context, FinancialDashboardsScreen.id),
+                    title: 'Financial\nDashboard',
                     image: AssetImage('assets/images/patterns/pattern_4.png'),
                   ),
                 ),
@@ -107,6 +112,8 @@ class _InsightsBodyState extends State<InsightsBody> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: DashboardContainer(
+                    onTap: () => Navigator.pushNamed(
+                        context, CustomersDashboardScreen.id),
                     title: 'Customers\nDashboard',
                     image: AssetImage('assets/images/patterns/pattern_5.png'),
                   ),

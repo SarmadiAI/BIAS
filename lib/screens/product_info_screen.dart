@@ -1,12 +1,4 @@
-import 'dart:ui';
-import 'package:bias/components/bias_date_field.dart';
-import 'package:bias/components/bias_dropdown_list.dart';
 import 'package:bias/components/bias_heading.dart';
-import 'package:bias/components/bias_image_field.dart';
-import 'package:bias/components/bias_subtitle.dart';
-import 'package:bias/components/bias_text_field.dart';
-import 'package:bias/components/bias_title.dart';
-import 'package:bias/components/bias_text.dart';
 import 'package:bias/constants.dart';
 import 'package:bias/screens/edit_product_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,14 +8,15 @@ import '../components/bias_static_image_field.dart';
 import '../components/bias_static_text_field.dart';
 
 class ProductInfoScreen extends StatefulWidget {
-  const ProductInfoScreen({Key? key}) : super(key: key);
+  final int? itemId;
+  const ProductInfoScreen({super.key, this.itemId});
   static const String id = "product_info_screen";
 
   @override
-  _ProductInfoScreenState createState() => _ProductInfoScreenState();
+  ProductInfoScreenState createState() => ProductInfoScreenState();
 }
 
-class _ProductInfoScreenState extends State<ProductInfoScreen> {
+class ProductInfoScreenState extends State<ProductInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +28,7 @@ class _ProductInfoScreenState extends State<ProductInfoScreen> {
             Container(
               height: 100,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
               ),
               child: Padding(
@@ -47,7 +40,7 @@ class _ProductInfoScreenState extends State<ProductInfoScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        BIASHeading(
+                        const BIASHeading(
                           'Product Info',
                         ),
                         Row(
@@ -57,18 +50,18 @@ class _ProductInfoScreenState extends State<ProductInfoScreen> {
                                 Navigator.pushNamed(
                                     context, EditProductScreen.id);
                               },
-                              child: Icon(
+                              child: const Icon(
                                 CupertinoIcons.pen,
                                 color: kBIASDarkGrayColor,
                                 size: 28,
                               ),
                             ),
-                            SizedBox(width: 15),
+                            const SizedBox(width: 15),
                             InkWell(
                               onTap: () {
                                 Navigator.pop(context);
                               },
-                              child: Icon(
+                              child: const Icon(
                                 CupertinoIcons.arrow_right,
                                 color: kBIASDarkGrayColor,
                                 size: 28,
@@ -88,7 +81,7 @@ class _ProductInfoScreenState extends State<ProductInfoScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: const [
                       SizedBox(height: 10),
                       SizedBox(height: 20),
                       BIASStaticTextField(

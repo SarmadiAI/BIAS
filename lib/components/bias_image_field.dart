@@ -10,8 +10,15 @@ import 'input_border.dart';
 
 class BIASImageField extends StatefulWidget {
   final String labelText;
+  XFile? image;
+  final Function getImage;
+  final Function deleteImage;
 
-  const BIASImageField({required this.labelText});
+  BIASImageField(
+      {required this.labelText,
+      required this.image,
+      required this.getImage,
+      required this.deleteImage});
 
   @override
   State<BIASImageField> createState() => _BIASImageFieldState();
@@ -21,7 +28,6 @@ class _BIASImageFieldState extends State<BIASImageField> {
   bool colorVisibility = false;
   ImagePicker picker = ImagePicker();
   XFile? pickedImage;
-  XFile? image;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +36,7 @@ class _BIASImageFieldState extends State<BIASImageField> {
         contentPadding:
             const EdgeInsets.symmetric(vertical: 22, horizontal: 15),
         prefixIconColor: kBIASRedColor,
-        labelText: this.widget.labelText,
+        labelText: widget.labelText,
         labelStyle: TextStyle(
           color: colorVisibility
               ? kBIASBlueColor
@@ -46,19 +52,19 @@ class _BIASImageFieldState extends State<BIASImageField> {
       child: Container(
         width: MediaQuery.of(context).size.width - 50,
         height: MediaQuery.of(context).size.width - 50,
-        decoration: image == null
+        decoration: widget.image == null
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(10), color: Colors.white)
             : BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  image: FileImage(File(image!.path)),
+                  image: FileImage(File(widget.image!.path)),
                   fit: BoxFit.cover,
                   alignment: Alignment.topCenter,
                 ),
               ),
         child: Column(
-          mainAxisAlignment: image == null
+          mainAxisAlignment: widget.image == null
               ? MainAxisAlignment.spaceEvenly
               : MainAxisAlignment.spaceBetween,
           children: [
@@ -66,12 +72,12 @@ class _BIASImageFieldState extends State<BIASImageField> {
               onTap: () async {
                 pickedImage =
                     await picker.pickImage(source: ImageSource.camera);
+                widget.getImage(pickedImage);
                 setState(() {
-                  image = pickedImage;
                   colorVisibility = true;
                 });
               },
-              child: image == null
+              child: widget.image == null
                   ? Container(
                       width: MediaQuery.of(context).size.width - 50,
                       height: MediaQuery.of(context).size.width / 2 - 50,
@@ -87,8 +93,8 @@ class _BIASImageFieldState extends State<BIASImageField> {
                       alignment: Alignment.topRight,
                       child: InkWell(
                         onTap: () {
+                          widget.deleteImage();
                           setState(() {
-                            image = null;
                             colorVisibility = false;
                           });
                         },
@@ -101,7 +107,7 @@ class _BIASImageFieldState extends State<BIASImageField> {
                     ),
             ),
             Visibility(
-              visible: image == null,
+              visible: widget.image == null,
               child: Divider(
                 thickness: 1,
                 indent: 30,
@@ -113,12 +119,12 @@ class _BIASImageFieldState extends State<BIASImageField> {
               onTap: () async {
                 pickedImage =
                     await picker.pickImage(source: ImageSource.gallery);
+                widget.getImage(pickedImage);
                 setState(() {
-                  image = pickedImage;
                   colorVisibility = true;
                 });
               },
-              child: image == null
+              child: widget.image == null
                   ? Container(
                       width: MediaQuery.of(context).size.width - 50,
                       height: MediaQuery.of(context).size.width / 2 - 50,

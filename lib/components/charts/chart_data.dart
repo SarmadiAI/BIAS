@@ -1,5 +1,6 @@
 class ChartData {
   final String x;
   final List<double> y;
-  ChartData(this.x, this.y);
+  final String? text;
+  ChartData(this.x, this.y, this.text);
 }

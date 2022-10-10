@@ -40,179 +40,110 @@ class _ProfitsDashboardScreenState extends State<ProfitsDashboardScreen> {
     ];
     String dropdownValue = _timePeriodsList[0];
 
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          color: CupertinoColors.extraLightBackgroundGray,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                height: 100,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const BIASHeading('Profits Dashboard'),
-                          Row(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  showFilterDialog();
-                                },
-                                child: const Icon(
-                                  Icons.filter_list,
-                                  color: kBIASDarkGrayColor,
-                                  size: 28,
-                                ),
-                              ),
-                              SizedBox(width: 10),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Icon(
-                                  CupertinoIcons.arrow_right,
-                                  color: kBIASDarkGrayColor,
-                                  size: 28,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 2),
-              Expanded(
-                child: ListView(
-                  children: [
-                    LineChartBox(
-                      data: data,
-                      title: 'PROFITS PER TIME PERIOD',
-                      value: 82.350,
-                      valuePostfix: 'JOD',
-                      isUp: true,
-                      isMoney: true,
-                      timePeriod: 'm',
-                    ),
-                    LineChartBox(
-                      data: data,
-                      title: 'PROFITS PER TIME PERIOD',
-                      value: 82.350,
-                      valuePostfix: 'JOD',
-                      isUp: true,
-                      isMoney: true,
-                      timePeriod: 'm',
-                    ),
-                    LineChartBox(
-                      data: data,
-                      title: 'PROFITS PER TIME PERIOD',
-                      value: 82.350,
-                      valuePostfix: 'JOD',
-                      isUp: true,
-                      isMoney: true,
-                      timePeriod: 'm',
-                    ),
-                    ColumnChartBox(
-                      data: data,
-                      title: 'PROFITS ON EACH DAY',
-                      value: 82.350,
-                      valuePostfix: 'JOD',
-                      isUp: true,
-                      isMoney: true,
-                      timePeriod: 'm',
-                    ),
-                    ColumnChartBox(
-                      data: data,
-                      title: 'PROFITS ON EACH HOUR',
-                      value: 82.350,
-                      valuePostfix: 'JOD',
-                      isUp: true,
-                      isMoney: true,
-                      timePeriod: 'm',
-                    ),
-                    BarChartBox(
-                      data: data,
-                      title: 'BEST ITEMS BY PROFITS',
-                      value: 82.350,
-                      valuePostfix: 'JOD',
-                      isUp: true,
-                      isMoney: true,
-                      timePeriod: 'm',
-                    ),
-                    BarChartBox(
-                      data: data,
-                      title: 'WORST ITEMS BY PROFITS',
-                      value: 82.350,
-                      valuePostfix: 'JOD',
-                      isUp: true,
-                      isMoney: true,
-                      timePeriod: 'm',
-                    ),
-                    DoughnutChartBox(
-                      data: data,
-                      title: 'ITEM CONTRIB IN PROFS',
-                      value: 82.350,
-                      valuePostfix: 'JOD',
-                      isUp: true,
-                      isMoney: true,
-                      timePeriod: 'm',
-                    ),
-                    CardBox(
-                      data: data,
-                      title: 'PROFITS PER TIME PERIOD',
-                      value: 82.350,
-                      valuePostfix: 'JOD',
-                      isUp: true,
-                      isMoney: true,
-                      timePeriod: 'm',
-                    ),
-                    CardBox(
-                      data: data,
-                      title: 'AVG PROFITS',
-                      value: 82.350,
-                      valuePostfix: 'JOD',
-                      isUp: true,
-                      isMoney: true,
-                      timePeriod: 'm',
-                    ),
-                    CardBox(
-                      data: data,
-                      title: 'TOP ITEM PROFITS',
-                      value: 82.350,
-                      valuePostfix: 'JOD',
-                      isUp: true,
-                      isMoney: true,
-                      timePeriod: 'm',
-                    ),
-                  ],
-                ),
-              ),
-            ],
+    return Expanded(
+      child: ListView(
+        children: [
+          LineChartBox(
+            data: data,
+            title: 'PROFITS PER TIME PERIOD',
+            value: 82.350,
+            valuePostfix: 'JOD',
+            isUp: true,
+            isMoney: true,
+            timePeriod: 'm',
           ),
-        ),
+          LineChartBox(
+            data: data,
+            title: 'PROFITS PER TIME PERIOD',
+            value: 82.350,
+            valuePostfix: 'JOD',
+            isUp: true,
+            isMoney: true,
+            timePeriod: 'm',
+          ),
+          LineChartBox(
+            data: data,
+            title: 'PROFITS PER TIME PERIOD',
+            value: 82.350,
+            valuePostfix: 'JOD',
+            isUp: true,
+            isMoney: true,
+            timePeriod: 'm',
+          ),
+          ColumnChartBox(
+            data: data,
+            title: 'PROFITS ON EACH DAY',
+            value: 82.350,
+            valuePostfix: 'JOD',
+            isUp: true,
+            isMoney: true,
+            timePeriod: 'm',
+          ),
+          ColumnChartBox(
+            data: data,
+            title: 'PROFITS ON EACH HOUR',
+            value: 82.350,
+            valuePostfix: 'JOD',
+            isUp: true,
+            isMoney: true,
+            timePeriod: 'm',
+          ),
+          BarChartBox(
+            data: data,
+            title: 'BEST ITEMS BY PROFITS',
+            value: 82.350,
+            valuePostfix: 'JOD',
+            isUp: true,
+            isMoney: true,
+            timePeriod: 'm',
+          ),
+          BarChartBox(
+            data: data,
+            title: 'WORST ITEMS BY PROFITS',
+            value: 82.350,
+            valuePostfix: 'JOD',
+            isUp: true,
+            isMoney: true,
+            timePeriod: 'm',
+          ),
+          DoughnutChartBox(
+            data: data,
+            title: 'ITEM CONTRIB IN PROFS',
+            value: 82.350,
+            valuePostfix: 'JOD',
+            isUp: true,
+            isMoney: true,
+            timePeriod: 'm',
+          ),
+          CardBox(
+            data: data,
+            title: 'PROFITS PER TIME PERIOD',
+            value: 82.350,
+            valuePostfix: 'JOD',
+            isUp: true,
+            isMoney: true,
+            timePeriod: 'm',
+          ),
+          CardBox(
+            data: data,
+            title: 'AVG PROFITS',
+            value: 82.350,
+            valuePostfix: 'JOD',
+            isUp: true,
+            isMoney: true,
+            timePeriod: 'm',
+          ),
+          CardBox(
+            data: data,
+            title: 'TOP ITEM PROFITS',
+            value: 82.350,
+            valuePostfix: 'JOD',
+            isUp: true,
+            isMoney: true,
+            timePeriod: 'm',
+          ),
+        ],
       ),
-    );
-  }
-
-  showFilterDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return FilterDialog();
-      },
     );
   }
 }

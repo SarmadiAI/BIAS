@@ -133,7 +133,7 @@ class _CardBoxState extends State<CardBox> {
                           items: timePeriods.map((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
-                              child: Text(value),
+                              child: BIASText(value, fontSize: 13),
                             );
                           }).toList(),
                         ),

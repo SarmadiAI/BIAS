@@ -1,3 +1,4 @@
+import 'package:bias/providers/receipt_provider.dart';
 import 'package:bias/providers/stock_provider.dart';
 import 'package:bias/screens/add_product_screen.dart';
 import 'package:bias/screens/charts_test.dart';
@@ -13,7 +14,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Stock()),
-        // ChangeNotifierProvider(create: (_) => Order()),
+        ChangeNotifierProvider(create: (_) => Receipt()),
         // ChangeNotifierProvider(create: (_) => Insight()),
       ],
       child: BIAS(),
@@ -38,12 +39,12 @@ class BIAS extends StatelessWidget {
     return MaterialApp(
       title: 'BIAS',
       routes: {
-        AddProductScreen.id: (context) => AddProductScreen(),
-        ChartsTest.id: (context) => ChartsTest(),
-        CheckoutScreen.id: (context) => CheckoutScreen(),
-        EditProductScreen.id: (context) => EditProductScreen(),
-        HomeScreen.id: (context) => HomeScreen(),
-        ProductInfoScreen.id: (context) => ProductInfoScreen(),
+        AddProductScreen.id: (context) => const AddProductScreen(),
+        ChartsTest.id: (context) => const ChartsTest(),
+        CheckoutScreen.id: (context) => const CheckoutScreen(),
+        EditProductScreen.id: (context) => const EditProductScreen(),
+        HomeScreen.id: (context) => const HomeScreen(),
+        ProductInfoScreen.id: (context) => const ProductInfoScreen(),
       },
       initialRoute: HomeScreen.id,
     );

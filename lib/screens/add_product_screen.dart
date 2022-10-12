@@ -181,10 +181,12 @@ class AddProductScreenState extends State<AddProductScreen> {
                   'description':
                       description.text == '' ? null : description.text,
                   'section': section,
-                  'full_quantity':
-                      fullQuantity.text == '' ? null : fullQuantity.text,
-                  'available_quantity':
-                      fullQuantity.text == '' ? null : fullQuantity.text,
+                  'full_quantity': fullQuantity.text == ''
+                      ? null
+                      : int.parse(fullQuantity.text),
+                  'available_quantity': fullQuantity.text == ''
+                      ? null
+                      : int.parse(fullQuantity.text),
                   'supplier_price':
                       supplierPrice.text == '' ? null : supplierPrice.text,
                   'selling_price':

@@ -1,24 +1,21 @@
 import 'package:bias/components/bias_heading.dart';
 import 'package:bias/components/bias_title.dart';
-import 'package:bias/screens/charts_test.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import '../../components/bias_text.dart';
-import '../../components/dashboard_container.dart';
+import 'package:provider/provider.dart';
 import '../../components/product_shopping_card.dart';
 import '../../components/search_text_field.dart';
 import '../../constants.dart';
+import '../../providers/stock_provider.dart';
 
 class CurrentOrderBody extends StatefulWidget {
   const CurrentOrderBody({Key? key}) : super(key: key);
 
   @override
-  _CurrentOrderBodyState createState() => _CurrentOrderBodyState();
+  CurrentOrderBodyState createState() => CurrentOrderBodyState();
 }
 
-class _CurrentOrderBodyState extends State<CurrentOrderBody> {
+class CurrentOrderBodyState extends State<CurrentOrderBody> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -72,34 +69,74 @@ class _CurrentOrderBodyState extends State<CurrentOrderBody> {
             ),
           ),
           Expanded(
-            child: ListView(children: [
-              SizedBox(height: 10),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                child: BIASTitle('Water Container Refillings'),
-              ),
-              ProductShoppingCard(
-                  title: 'Water Container Refilling',
-                  subtitle: '20L',
-                  price: 0.5),
-              SizedBox(height: 10),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                child: BIASTitle('Water Bottles'),
-              ),
-              SizedBox(height: 10),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                child: BIASTitle('Other'),
-              ),
-              SizedBox(height: 10),
-            ]),
+            child:
+                ListView(cacheExtent: 5000000, children: stocksWidget(context)),
           ),
         ],
       ),
     );
   }
+}
+
+List<Widget> stocksWidget(BuildContext context) {
+  List<Widget> waterRefill = [
+    SizedBox(height: 10),
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+      child: BIASTitle('Water Container Refillings'),
+    ),
+  ];
+  List<Widget> waterBottles = [
+    SizedBox(height: 10),
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+      child: BIASTitle('Water Bottles'),
+    ),
+  ];
+  List<Widget> other = [
+    SizedBox(height: 10),
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+      child: BIASTitle('Other'),
+    ),
+  ];
+
+  List data = Provider.of<Stock>(context, listen: true).stocks;
+  for (int i = 0; i < data.length; i++) {
+    if (data[i]['section'] == 'Water Container Refillings') {
+      waterRefill.add(
+        ProductShoppingCard(
+          id: data[i]['id'].toString(),
+          title: data[i]['brand_name'],
+          subtitle: data[i]['description'],
+          initialQuantity: 0,
+          price: data[i]['price'] ?? 0,
+          image: data[i]['image'],
+        ),
+      );
+      waterRefill.add(const SizedBox(height: 10));
+    } else if (data[i]['section'] == 'Water Bottles') {
+      waterBottles.add(ProductShoppingCard(
+        id: data[i]['id'].toString(),
+        title: data[i]['brand_name'],
+        subtitle: data[i]['description'],
+        initialQuantity: 0,
+        price: data[i]['price'] ?? 0,
+        image: data[i]['image'],
+      ));
+      waterBottles.add(const SizedBox(height: 10));
+    } else {
+      other.add(ProductShoppingCard(
+        id: data[i]['id'].toString(),
+        title: data[i]['brand_name'],
+        subtitle: data[i]['description'],
+        initialQuantity: 0,
+        price: data[i]['price'] ?? 0,
+        image: data[i]['image'],
+      ));
+      other.add(const SizedBox(height: 10));
+    }
+  }
+
+  return waterRefill + waterBottles + other;
 }

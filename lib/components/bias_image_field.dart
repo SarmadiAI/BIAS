@@ -4,7 +4,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:bias/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'input_border.dart';
 
@@ -15,7 +14,8 @@ class BIASImageField extends StatefulWidget {
   final Function deleteImage;
 
   BIASImageField(
-      {required this.labelText,
+      {super.key,
+      required this.labelText,
       required this.image,
       required this.getImage,
       required this.deleteImage});
@@ -78,7 +78,7 @@ class _BIASImageFieldState extends State<BIASImageField> {
                 });
               },
               child: widget.image == null
-                  ? Container(
+                  ? SizedBox(
                       width: MediaQuery.of(context).size.width - 50,
                       height: MediaQuery.of(context).size.width / 2 - 50,
                       child: Center(
@@ -98,8 +98,8 @@ class _BIASImageFieldState extends State<BIASImageField> {
                             colorVisibility = false;
                           });
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                        child: const Padding(
+                          padding: EdgeInsets.all(10.0),
                           child: Icon(CupertinoIcons.xmark,
                               color: kBIASDarkGrayColor),
                         ),
@@ -125,7 +125,7 @@ class _BIASImageFieldState extends State<BIASImageField> {
                 });
               },
               child: widget.image == null
-                  ? Container(
+                  ? SizedBox(
                       width: MediaQuery.of(context).size.width - 50,
                       height: MediaQuery.of(context).size.width / 2 - 50,
                       child: Center(

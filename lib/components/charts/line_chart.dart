@@ -3,6 +3,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../screens/charts_test.dart';
 import 'chart_data.dart';
+import 'line_chart_box.dart';
 
 class LineChart extends StatelessWidget {
   const LineChart({

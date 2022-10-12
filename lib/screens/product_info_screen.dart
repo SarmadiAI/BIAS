@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../components/bias_static_image_field.dart';
 import '../components/bias_static_text_field.dart';
+import '../components/bias_text.dart';
 
 class ProductInfoScreen extends StatefulWidget {
   final int? itemId;
@@ -81,7 +82,7 @@ class ProductInfoScreenState extends State<ProductInfoScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       SizedBox(height: 10),
                       SizedBox(height: 20),
                       BIASStaticTextField(
@@ -92,7 +93,39 @@ class ProductInfoScreenState extends State<ProductInfoScreen> {
                       BIASStaticTextField(
                           labelText: 'Product Subtitle (Description)'),
                       SizedBox(height: 15),
-                      BIASStaticTextField(labelText: 'Quantity'),
+                      Row(
+                        children: [
+                          Expanded(
+                              flex: 2,
+                              child:
+                                  BIASStaticTextField(labelText: 'Quantity')),
+                          SizedBox(width: 8),
+                          Expanded(
+                            flex: 1,
+                            child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: kBIASBlueColor.withOpacity(0.9),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 17),
+                                  child: Center(
+                                    child: BIASText(
+                                      'Add Quantity',
+                                      color: Colors.white,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: 15),
                       BIASStaticTextField(labelText: 'Section'),
                       SizedBox(height: 20),

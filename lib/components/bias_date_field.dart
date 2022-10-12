@@ -36,12 +36,16 @@ class _BIASDateFieldState extends State<BIASDateField> {
           });
         },
         child: TextField(
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            fontFamily: 'Poppins',
+          ),
           controller: widget.controller,
           readOnly: true,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 22, horizontal: 15),
-            prefixIconColor: kBIASRedColor,
             labelText: widget.labelText,
             labelStyle: TextStyle(
               color: colorVisibility

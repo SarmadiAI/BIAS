@@ -3,9 +3,15 @@ import 'package:bias/providers/stock_provider.dart';
 import 'package:bias/screens/add_product_screen.dart';
 import 'package:bias/screens/charts_test.dart';
 import 'package:bias/screens/checkout_screen.dart';
+import 'package:bias/screens/dashboards/costs_dashboard_screen.dart';
+import 'package:bias/screens/dashboards/customers_dashboard_screen.dart';
+import 'package:bias/screens/dashboards/profits_dashboard_screen.dart';
+import 'package:bias/screens/dashboards/revenues_dashboard_screen.dart';
 import 'package:bias/screens/edit_product_screen.dart';
 import 'package:bias/screens/home_screen.dart';
 import 'package:bias/screens/product_info_screen.dart';
+import 'package:bias/screens/financial_dashboards_screen.dart';
+import 'package:bias/screens/dashboards/sales_dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,12 +45,18 @@ class BIAS extends StatelessWidget {
     return MaterialApp(
       title: 'BIAS',
       routes: {
-        AddProductScreen.id: (context) => const AddProductScreen(),
-        ChartsTest.id: (context) => const ChartsTest(),
-        CheckoutScreen.id: (context) => const CheckoutScreen(),
-        EditProductScreen.id: (context) => const EditProductScreen(),
-        HomeScreen.id: (context) => const HomeScreen(),
-        ProductInfoScreen.id: (context) => const ProductInfoScreen(),
+        AddProductScreen.id: (context) => AddProductScreen(),
+        ChartsTest.id: (context) => ChartsTest(),
+        CheckoutScreen.id: (context) => CheckoutScreen(),
+        CostsDashboardScreen.id: (context) => CostsDashboardScreen(),
+        CustomersDashboardScreen.id: (context) => CustomersDashboardScreen(),
+        EditProductScreen.id: (context) => EditProductScreen(),
+        HomeScreen.id: (context) => HomeScreen(),
+        ProductInfoScreen.id: (context) => ProductInfoScreen(),
+        ProfitsDashboardScreen.id: (context) => ProfitsDashboardScreen(),
+        RevenuesDashboardScreen.id: (context) => RevenuesDashboardScreen(),
+        SalesDashboardScreen.id: (context) => SalesDashboardScreen(),
+        FinancialDashboardsScreen.id: (context) => FinancialDashboardsScreen(),
       },
       initialRoute: HomeScreen.id,
     );

@@ -10,7 +10,7 @@ class BIASHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     return BIASText(
       heading,
-      fontSize: 27,
+      fontSize: 24,
       fontWeight: FontWeight.w600,
     );
   }

@@ -1,25 +1,41 @@
 import 'package:bias/components/bias_subtitle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../components/bias_heading.dart';
 import '../components/bias_text.dart';
 import '../components/bias_title.dart';
 import '../components/product_shopping_card.dart';
-import '../components/search_text_field.dart';
 import '../constants.dart';
+import '../providers/receipt_provider.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({Key? key}) : super(key: key);
   static const String id = "checkout_screen";
 
   @override
-  _CheckoutScreenState createState() => _CheckoutScreenState();
+  CheckoutScreenState createState() => CheckoutScreenState();
 }
 
-class _CheckoutScreenState extends State<CheckoutScreen> {
+class CheckoutScreenState extends State<CheckoutScreen> {
+  String subTotal() {
+    double subTotal = 0;
+    Map order = Provider.of<Receipt>(context, listen: true).receipt;
+    for (var item in order.values) {
+      subTotal += item[0] * item[1];
+    }
+    return subTotal.toStringAsFixed(2);
+  }
+
+  String total() {
+    return subTotal();
+  }
+
   @override
   Widget build(BuildContext context) {
+    Map receipt = Provider.of<Receipt>(context, listen: false).receipt;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -29,7 +45,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             Container(
               height: 100,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
               ),
               child: Padding(
@@ -41,12 +57,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        BIASHeading('Checkout'),
+                        const BIASHeading('Checkout'),
                         InkWell(
                           onTap: () {
                             Navigator.pop(context);
                           },
-                          child: Icon(
+                          child: const Icon(
                             CupertinoIcons.arrow_right,
                             color: kBIASDarkGrayColor,
                             size: 28,
@@ -60,20 +76,21 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             ),
             Expanded(
               child: ListView(children: [
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 10),
+                const SizedBox(height: 10),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                   child: BIASTitle('Current Order'),
                 ),
-                ProductShoppingCard(
-                    title: 'Water Container Refilling',
-                    subtitle: '20L',
-                    price: 0.5),
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 10),
+                for (var item in receipt.keys)
+                  ProductShoppingCard(
+                      id: item,
+                      title: receipt[item][2],
+                      subtitle: receipt[item][3],
+                      initialQuantity: receipt[item][0],
+                      price: receipt[item][1]),
+                const SizedBox(height: 10),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                   child: BIASTitle('Payment Summary'),
                 ),
                 Padding(
@@ -85,29 +102,29 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           BIASSubtitle('Basket Total'),
-                          BIASSubtitle('0.5 JOD'),
+                          BIASSubtitle('${subTotal()} JOD'),
                         ],
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          BIASSubtitle('Basket Total'),
+                          BIASSubtitle('Basket Tax Total'),
                           BIASSubtitle('0.0 JOD'),
                         ],
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          BIASText('Basket Total'),
-                          BIASText('0.5 JOD'),
+                          const BIASText('Basket Total'),
+                          BIASText('${total()} JOD'),
                         ],
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 25),
+                const SizedBox(height: 25),
               ]),
             ),
             Container(
@@ -120,7 +137,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 0,
                     blurRadius: 2,
-                    offset: Offset(0, 0), // changes position of shadow
+                    offset: const Offset(0, 0), // changes position of shadow
                   ),
                 ],
               ),
@@ -154,7 +171,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: InkWell(
                         onTap: () {},
@@ -163,7 +180,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             color: kBIASBlueColor.withOpacity(0.9),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Center(
+                          child: const Center(
                             child: BIASText(
                               'Checkout',
                               color: Colors.white,

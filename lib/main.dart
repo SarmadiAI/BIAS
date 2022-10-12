@@ -1,3 +1,4 @@
+import 'package:bias/providers/receipt_provider.dart';
 import 'package:bias/providers/stock_provider.dart';
 import 'package:bias/screens/add_product_screen.dart';
 import 'package:bias/screens/charts_test.dart';
@@ -19,7 +20,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Stock()),
-        // ChangeNotifierProvider(create: (_) => Order()),
+        ChangeNotifierProvider(create: (_) => Receipt()),
         // ChangeNotifierProvider(create: (_) => Insight()),
       ],
       child: BIAS(),

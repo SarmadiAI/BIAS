@@ -1,17 +1,24 @@
+import 'package:bias/providers/receipt_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import 'bias_text.dart';
 
 class ProductShoppingCard extends StatefulWidget {
+  final String id;
   final String title;
   final String? subtitle;
   final double? price;
+  int initialQuantity;
   final ImageProvider<Object>? image;
 
-  const ProductShoppingCard({
+  ProductShoppingCard({
+    super.key,
+    required this.id,
     required this.title,
+    required this.initialQuantity,
     this.subtitle,
     this.price,
     this.image,
@@ -22,7 +29,6 @@ class ProductShoppingCard extends StatefulWidget {
 }
 
 class _ProductShoppingCardState extends State<ProductShoppingCard> {
-  int _quantity = 0;
   String _totalPrice = 0.toStringAsFixed(2);
 
   @override
@@ -40,7 +46,7 @@ class _ProductShoppingCardState extends State<ProductShoppingCard> {
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 0,
               blurRadius: 3.5,
-              offset: Offset(0, 0), // changes position of shadow
+              offset: const Offset(0, 0), // changes position of shadow
             ),
           ],
         ),
@@ -77,7 +83,7 @@ class _ProductShoppingCardState extends State<ProductShoppingCard> {
                         SizedBox(
                           width: 100,
                           child: BIASText(
-                            '$_totalPrice JOD',
+                            '${widget.price == 0 ? '--' : _totalPrice} JOD',
                             fontSize: 13,
                           ),
                         ),
@@ -87,33 +93,52 @@ class _ProductShoppingCardState extends State<ProductShoppingCard> {
                             InkWell(
                               onTap: () {
                                 setState(() {
-                                  _quantity > 0 ? _quantity-- : 0;
-                                  _totalPrice = (_quantity * widget.price!)
-                                      .toStringAsFixed(2);
+                                  widget.initialQuantity == 0
+                                      ? null
+                                      : widget.initialQuantity--;
+                                  _totalPrice =
+                                      (widget.initialQuantity * widget.price!)
+                                          .toStringAsFixed(2);
                                 });
+                                Provider.of<Receipt>(context, listen: false)
+                                    .addItem(
+                                        widget.id,
+                                        widget.initialQuantity,
+                                        widget.price,
+                                        widget.title,
+                                        widget.subtitle);
                               },
-                              child: Icon(
+                              child: const Icon(
                                 CupertinoIcons.minus,
                                 color: kBIASBlueColor,
                                 size: 15,
                               ),
                             ),
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                             BIASText(
-                              '$_quantity',
+                              '${widget.initialQuantity}',
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
                             ),
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                             InkWell(
                               onTap: () {
                                 setState(() {
-                                  _quantity++;
-                                  _totalPrice = (_quantity * widget.price!)
-                                      .toStringAsFixed(2);
+                                  widget.initialQuantity++;
+                                  _totalPrice =
+                                      (widget.initialQuantity * widget.price!)
+                                          .toStringAsFixed(2);
                                 });
+
+                                Provider.of<Receipt>(context, listen: false)
+                                    .addItem(
+                                        widget.id,
+                                        widget.initialQuantity,
+                                        widget.price,
+                                        widget.title,
+                                        widget.subtitle);
                               },
-                              child: Icon(
+                              child: const Icon(
                                 CupertinoIcons.plus,
                                 color: kBIASBlueColor,
                                 size: 15,
@@ -134,7 +159,7 @@ class _ProductShoppingCardState extends State<ProductShoppingCard> {
                     color: CupertinoColors.extraLightBackgroundGray,
                     image: DecorationImage(
                       image: widget.image ??
-                          AssetImage('assets/images/water_container.png'),
+                          const AssetImage('assets/images/water_container.png'),
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
                     )),

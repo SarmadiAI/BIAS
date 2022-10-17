@@ -22,6 +22,7 @@ class CustomersDashboardScreen extends StatefulWidget {
 
 class _CustomersDashboardScreen extends State<CustomersDashboardScreen> {
   dynamic checkedData;
+  bool getData = false;
 
   String CSTMRSPerTimeTimePeriodValue = 'Week';
 
@@ -76,7 +77,8 @@ class _CustomersDashboardScreen extends State<CustomersDashboardScreen> {
             body: jsonEncode({
               'statistics_type': 'customers',
               'period': worstItemByCSTMRSTimePeriodValue,
-              'stock_list': [5, 6]
+              'stock_list':
+                  checkedData == null ? [] : checkedData[1]['Select All']
             }))
         .then((value) {
       if (value.statusCode == 200) {
@@ -115,7 +117,8 @@ class _CustomersDashboardScreen extends State<CustomersDashboardScreen> {
             body: jsonEncode({
               'statistics_type': 'customers',
               'period': itemCONTRIBInCSTMRSTimePeriodValue,
-              'stock_list': [5, 6]
+              'stock_list':
+                  checkedData == null ? [] : checkedData[1]['Select All']
             }))
         .then((value) {
       if (value.statusCode == 200) {
@@ -234,6 +237,14 @@ class _CustomersDashboardScreen extends State<CustomersDashboardScreen> {
     if (getAvgCSTMRSCardData) {
       getAvgSalesPeriodCardPoints();
       getAvgCSTMRSCardData = false;
+    }
+    if (getData) {
+      getSalesPerTimePeriodPoints();
+      getWorstItemBySalesPoints();
+      getItemCONTRIBInSalesPoints();
+      getSalesPerTimePeriodCardPoints();
+      getAvgSalesPeriodCardPoints();
+      getData = false;
     }
     return Scaffold(
       body: SafeArea(
@@ -395,5 +406,8 @@ class _CustomersDashboardScreen extends State<CustomersDashboardScreen> {
     );
   }
 
-  function(value) => setState(() => checkedData = value);
+  function(value) => setState(() {
+        checkedData = value;
+        getData = true;
+      });
 }

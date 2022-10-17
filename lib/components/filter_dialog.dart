@@ -3,8 +3,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:parent_child_checkbox/parent_child_checkbox.dart';
+import 'package:provider/provider.dart';
 
 import '../constants.dart';
+import '../providers/stock_provider.dart';
 import 'bias_text.dart';
 import 'bias_title.dart';
 import 'items_list.dart';
@@ -15,6 +17,7 @@ class FilterDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List data = Provider.of<Stock>(context, listen: true).stocks;
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -30,7 +33,6 @@ class FilterDialog extends StatelessWidget {
         'Filter by item',
       ),
       content: Container(
-        height: 270,
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
@@ -54,42 +56,16 @@ class FilterDialog extends StatelessWidget {
                     ),
                   ),
                   children: [
-                    Text(
-                      'Item 1',
-                      style: TextStyle(
-                        color: kBIASDarkGrayColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'Poppins',
+                    for (int i = 0; i < data.length; i++)
+                      Text(
+                        data[i]['brand_name'],
+                        style: TextStyle(
+                          color: kBIASDarkGrayColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Poppins',
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Item 2',
-                      style: TextStyle(
-                        color: kBIASDarkGrayColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'Poppins',
-                      ),
-                    ),
-                    Text(
-                      'Item 3',
-                      style: TextStyle(
-                        color: kBIASDarkGrayColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'Poppins',
-                      ),
-                    ),
-                    Text(
-                      'Item 43253234',
-                      style: TextStyle(
-                        color: kBIASDarkGrayColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'Poppins',
-                      ),
-                    ),
                   ],
                 ),
               ),

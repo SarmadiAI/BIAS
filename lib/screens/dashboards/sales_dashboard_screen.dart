@@ -22,6 +22,7 @@ class SalesDashboardScreen extends StatefulWidget {
 
 class SalesDashboardScreenState extends State<SalesDashboardScreen> {
   dynamic checkedData;
+  bool getData = false;
 
   String salesPerTimeTimePeriodValue = 'Week';
 
@@ -38,7 +39,8 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
             body: jsonEncode({
               'statistics_type': 'quantities',
               'period': salesPerTimeTimePeriodValue,
-              'stock_list': [5, 6]
+              'stock_list':
+                  checkedData == null ? [] : checkedData[1]['Select All']
             }))
         .then((value) {
       if (value.statusCode == 200) {
@@ -78,7 +80,8 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
             body: jsonEncode({
               'statistics_type': 'quantities',
               'period': worstItemBySalesTimePeriodValue,
-              'stock_list': [5, 6]
+              'stock_list':
+                  checkedData == null ? [] : checkedData[1]['Select All']
             }))
         .then((value) {
       if (value.statusCode == 200) {
@@ -117,7 +120,8 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
             body: jsonEncode({
               'statistics_type': 'quantities',
               'period': itemCONTRIBInSalesTimePeriodValue,
-              'stock_list': [5, 6]
+              'stock_list':
+                  checkedData == null ? [] : checkedData[1]['Select All']
             }))
         .then((value) {
       if (value.statusCode == 200) {
@@ -157,7 +161,8 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
             body: jsonEncode({
               'statistics_type': 'quantities',
               'period': salesPerTimeTimePeriodCardValue,
-              'stock_list': [5, 6]
+              'stock_list':
+                  checkedData == null ? [] : checkedData[1]['Select All']
             }))
         .then((value) {
       if (value.statusCode == 200) {
@@ -190,7 +195,8 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
             body: jsonEncode({
               'statistics_type': 'quantities',
               'period': avgSalesTimePeriodCardValue,
-              'stock_list': [5, 6]
+              'stock_list':
+                  checkedData == null ? [] : checkedData[1]['Select All']
             }))
         .then((value) {
       if (value.statusCode == 200) {
@@ -241,6 +247,14 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
       getAvgSalesPeriodCardPoints();
       getAvgSalesCardData = false;
     }
+    if (getData) {
+      getSalesPerTimePeriodPoints();
+      getWorstItemBySalesPoints();
+      getItemCONTRIBInSalesPoints();
+      getSalesPerTimePeriodCardPoints();
+      getAvgSalesPeriodCardPoints();
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -401,5 +415,8 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
     );
   }
 
-  function(value) => setState(() => checkedData = value);
+  function(value) => setState(() {
+        checkedData = value;
+        getData = true;
+      });
 }

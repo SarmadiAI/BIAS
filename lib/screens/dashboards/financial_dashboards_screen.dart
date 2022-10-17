@@ -1,5 +1,4 @@
 import 'package:bias/components/bias_text.dart';
-import 'package:bias/screens/dashboards/costs_dashboard_screen.dart';
 import 'package:bias/screens/dashboards/profits_dashboard_screen.dart';
 import 'package:bias/screens/dashboards/revenues_dashboard_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import '../../../components/bias_heading.dart';
 
-import '../../../components/charts/chart_data.dart';
 import '../../../components/filter_dialog.dart';
 
 import '../../../constants.dart';
@@ -22,15 +20,8 @@ class FinancialDashboardsScreen extends StatefulWidget {
 }
 
 class _FinancialDashboardsScreenState extends State<FinancialDashboardsScreen> {
-  List<ChartData> data = [
-    ChartData('24 Sep - Sat', [9], 'one'),
-    ChartData('25 Sep - Sun', [24], 'two'),
-    ChartData('26 Sep - Mon', [34], 'three'),
-    ChartData('27 Sep - Tue', [13], 'four'),
-    ChartData('28 Sep - Wed', [30], 'five'),
-    ChartData('29 Sep - Thu', [45], 'six'),
-    ChartData('30 Sep - Fri', [11], 'seven')
-  ];
+  dynamic checkedData;
+
   List<String> financialDashboards = [
     'Revenues',
     'Profits',
@@ -153,8 +144,11 @@ class _FinancialDashboardsScreenState extends State<FinancialDashboardsScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        return const FilterDialog();
+        return FilterDialog(func: function);
       },
     );
+    print(checkedData);
   }
+
+  function(value) => setState(() => checkedData = value);
 }

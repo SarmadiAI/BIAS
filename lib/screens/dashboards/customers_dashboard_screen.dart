@@ -21,6 +21,8 @@ class CustomersDashboardScreen extends StatefulWidget {
 }
 
 class _CustomersDashboardScreen extends State<CustomersDashboardScreen> {
+  dynamic checkedData;
+
   String CSTMRSPerTimeTimePeriodValue = 'Week';
 
   bool getCSTMRSPerTimeData = false;
@@ -388,8 +390,10 @@ class _CustomersDashboardScreen extends State<CustomersDashboardScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        return const FilterDialog();
+        return FilterDialog(func: function);
       },
     );
   }
+
+  function(value) => setState(() => checkedData = value);
 }

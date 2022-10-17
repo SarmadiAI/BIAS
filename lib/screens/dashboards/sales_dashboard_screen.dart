@@ -21,6 +21,8 @@ class SalesDashboardScreen extends StatefulWidget {
 }
 
 class SalesDashboardScreenState extends State<SalesDashboardScreen> {
+  dynamic checkedData;
+
   String salesPerTimeTimePeriodValue = 'Week';
 
   bool getSalesPerTimeData = false;
@@ -394,8 +396,10 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        return const FilterDialog();
+        return FilterDialog(func: function);
       },
     );
   }
+
+  function(value) => setState(() => checkedData = value);
 }

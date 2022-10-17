@@ -1,4 +1,8 @@
+import 'dart:developer';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:parent_child_checkbox/parent_child_checkbox.dart';
 
 import '../constants.dart';
 import 'bias_text.dart';
@@ -6,9 +10,8 @@ import 'bias_title.dart';
 import 'items_list.dart';
 
 class FilterDialog extends StatelessWidget {
-  const FilterDialog({
-    Key? key,
-  }) : super(key: key);
+  final Function func;
+  FilterDialog({required this.func});
 
   @override
   Widget build(BuildContext context) {
@@ -29,32 +32,78 @@ class FilterDialog extends StatelessWidget {
       content: Container(
         height: 270,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              // ParentChildCheckbox(
-              //   parent: Text('Parent 1'),
-              //   children: [
-              //     Text('Children 1.1'),
-              //     Text('Children 1.2'),
-              //     Text('Children 1.3'),
-              //     Text('Children 1.4'),
-              //   ],
-              //   parentCheckboxColor: kBIASBlueColor.withOpacity(0.9),
-              //   childrenCheckboxColor: kBIASBlueColor.withOpacity(0.6),
-              // ),
-              ItemsList(),
-
-              SizedBox(height: 8),
+            children: [
+              SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: ParentChildCheckbox(
+                  parentCheckboxColor: kBIASBlueColor.withOpacity(0.9),
+                  childrenCheckboxColor: kBIASBlueColor.withOpacity(0.6),
+                  parent: Text(
+                    'Select All',
+                    style: TextStyle(
+                      color: kBIASDarkGrayColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  children: [
+                    Text(
+                      'Item 1',
+                      style: TextStyle(
+                        color: kBIASDarkGrayColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                    Text(
+                      'Item 2',
+                      style: TextStyle(
+                        color: kBIASDarkGrayColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                    Text(
+                      'Item 3',
+                      style: TextStyle(
+                        color: kBIASDarkGrayColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                    Text(
+                      'Item 43253234',
+                      style: TextStyle(
+                        color: kBIASDarkGrayColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () {
-                    // log(ParentChildCheckbox.isParentSelected.toString());
-                    // log(ParentChildCheckbox.selectedChildrens.toString());
+                    func([
+                      ParentChildCheckbox.isParentSelected,
+                      ParentChildCheckbox.selectedChildrens
+                    ]);
+
+                    Navigator.pop(context);
                   },
                   child: Container(
                     height: 40,

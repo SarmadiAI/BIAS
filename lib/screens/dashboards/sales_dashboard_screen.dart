@@ -26,6 +26,8 @@ class SalesDashboardScreen extends StatefulWidget {
 }
 
 class _SalesDashboardScreenState extends State<SalesDashboardScreen> {
+  dynamic checkedData;
+
   List<ChartData> data = [
     ChartData('24 Sep - Sat', [9], 'one'),
     ChartData('25 Sep - Sun', [24], 'two'),
@@ -197,8 +199,10 @@ class _SalesDashboardScreenState extends State<SalesDashboardScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        return FilterDialog();
+        return FilterDialog(func: function);
       },
     );
   }
+
+  function(value) => setState(() => checkedData = value);
 }

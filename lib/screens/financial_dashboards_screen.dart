@@ -27,6 +27,8 @@ class FinancialDashboardsScreen extends StatefulWidget {
 }
 
 class _FinancialDashboardsScreenState extends State<FinancialDashboardsScreen> {
+  dynamic checkedData;
+
   List<ChartData> data = [
     ChartData('24 Sep - Sat', [9], 'one'),
     ChartData('25 Sep - Sun', [24], 'two'),
@@ -157,8 +159,11 @@ class _FinancialDashboardsScreenState extends State<FinancialDashboardsScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        return FilterDialog();
+        return FilterDialog(func: function);
       },
     );
+    print(checkedData);
   }
+
+  function(value) => setState(() => checkedData = value);
 }

@@ -33,17 +33,6 @@ class AddProductScreenState extends State<AddProductScreen> {
   TextEditingController expirationDate = TextEditingController(text: null);
   TextEditingController reshippingDays = TextEditingController(text: null);
   XFile? image;
-  // brandName,
-// description,
-// section,
-// fullQuantity,
-// availableQuantity,
-// supplierPrice,
-// sellingPrice,
-// expirationDate,
-// restockDate,
-// reshippingDays,
-// image,
 
   @override
   Widget build(BuildContext context) {
@@ -181,9 +170,7 @@ class AddProductScreenState extends State<AddProductScreen> {
                   'description':
                       description.text == '' ? null : description.text,
                   'section': section,
-                  'full_quantity': fullQuantity.text == ''
-                      ? null
-                      : int.parse(fullQuantity.text),
+                  'sold_quantity': 0,
                   'available_quantity': fullQuantity.text == ''
                       ? null
                       : int.parse(fullQuantity.text),

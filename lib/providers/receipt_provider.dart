@@ -8,22 +8,34 @@ class Receipt with ChangeNotifier {
 
   Map get receipt => _receipt;
 
-  void addItem(id, quantity, price, brandName, description) {
+  void addItem(id, quantity, price, brandName, description, image) {
     quantity == 0
         ? _receipt.remove(id.toString())
-        : _receipt[id.toString()] = [quantity, price, brandName, description];
+        : _receipt[id.toString()] = [
+            quantity,
+            price,
+            brandName,
+            description,
+            image,
+          ];
     notifyListeners();
   }
 
-  void createReceipt() {
-    http.post(Uri.parse('http://127.0.0.1:8000/apis/create_receipt/'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
-        },
-        body: jsonEncode(<String, dynamic>{
-          "sales": _receipt,
-        }));
-    _receipt = {};
-    notifyListeners();
+  Future<bool> createReceipt() async {
+    await http
+        .post(
+            Uri.parse(
+                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/apis/create_receipt/'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: jsonEncode(<String, dynamic>{
+              "sales": _receipt,
+            }))
+        .then((value) {
+      _receipt = {};
+      notifyListeners();
+    });
+    return true;
   }
 }

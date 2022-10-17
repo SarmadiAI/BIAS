@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../components/bias_heading.dart';
@@ -12,6 +14,7 @@ import '../../components/charts/line_chart_box.dart';
 import '../../components/filter_dialog.dart';
 import '../../components/items.dart';
 import '../../constants.dart';
+import 'package:http/http.dart' as http;
 
 class ProfitsDashboardScreen extends StatefulWidget {
   const ProfitsDashboardScreen({Key? key}) : super(key: key);
@@ -22,125 +25,307 @@ class ProfitsDashboardScreen extends StatefulWidget {
 }
 
 class _ProfitsDashboardScreenState extends State<ProfitsDashboardScreen> {
-  List<ChartData> data = [
-    ChartData('24 Sep - Sat', [9], 'one'),
-    ChartData('25 Sep - Sun', [24], 'two'),
-    ChartData('26 Sep - Mon', [34], 'three'),
-    ChartData('27 Sep - Tue', [13], 'four'),
-    ChartData('28 Sep - Wed', [30], 'five'),
-    ChartData('29 Sep - Thu', [45], 'six'),
-    ChartData('30 Sep - Fri', [11], 'seven')
-  ];
+  String profitsPerTimeTimePeriodValue = 'Week';
+
+  bool getProfitsPerTimeData = false;
+
+  void getSalesPerTimePeriodPoints() async {
+    http
+        .post(
+            Uri.parse(
+                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_statistics_category/'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: jsonEncode({
+              'statistics_type': 'profits',
+              'period': profitsPerTimeTimePeriodValue,
+              'stock_list': [5, 6]
+            }))
+        .then((value) {
+      if (value.statusCode == 200) {
+        ProfitsPerTimePeriodPoints = [];
+        Map data = jsonDecode(value.body);
+        for (String key in data.keys) {
+          ProfitsPerTimePeriodPoints.add(ChartData(key, [data[key] ?? 0], key));
+        }
+        setState(() {
+          if (profitsPerTimeTimePeriodValue == 'Week' ||
+              profitsPerTimeTimePeriodValue == 'Month') {
+            ProfitsPerTimePeriodPoints =
+                ProfitsPerTimePeriodPoints.reversed.toList();
+          } else {
+            ProfitsPerTimePeriodPoints = ProfitsPerTimePeriodPoints;
+          }
+        });
+      }
+    });
+  }
+
+  List<ChartData> ProfitsPerTimePeriodPoints = [];
+
+  String worstItemByProfitsTimePeriodValue = 'Week';
+
+  bool getWorstItemByProfitsData = false;
+
+  void getWorstItemBySalesPoints() async {
+    http
+        .post(
+            Uri.parse(
+                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_item_category/'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: jsonEncode({
+              'statistics_type': 'profits',
+              'period': worstItemByProfitsTimePeriodValue,
+              'stock_list': [5, 6]
+            }))
+        .then((value) {
+      if (value.statusCode == 200) {
+        worstItemByProfitsPoints = [];
+        Map data = jsonDecode(value.body);
+        for (String key in data.keys) {
+          worstItemByProfitsPoints.add(ChartData(key, [data[key]], key));
+        }
+        setState(() {
+          if (profitsPerTimeTimePeriodValue == 'Week' ||
+              profitsPerTimeTimePeriodValue == 'Month') {
+            worstItemByProfitsPoints =
+                worstItemByProfitsPoints.reversed.toList();
+          } else {
+            worstItemByProfitsPoints = worstItemByProfitsPoints;
+          }
+        });
+      }
+    });
+  }
+
+  List<ChartData> worstItemByProfitsPoints = [];
+
+  String itemCONTRIBInProfitsTimePeriodValue = 'Week';
+
+  bool getItemCONTRIBInProfitsData = false;
+
+  void getItemCONTRIBInSalesPoints() async {
+    http
+        .post(
+            Uri.parse(
+                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_item_category/'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: jsonEncode({
+              'statistics_type': 'profits',
+              'period': itemCONTRIBInProfitsTimePeriodValue,
+              'stock_list': [5, 6]
+            }))
+        .then((value) {
+      if (value.statusCode == 200) {
+        itemCONTRIBInProfitsPoints = [];
+        Map data = jsonDecode(value.body);
+        for (String key in data.keys) {
+          itemCONTRIBInProfitsPoints.add(ChartData(key, [data[key]], key));
+        }
+        setState(() {
+          if (profitsPerTimeTimePeriodValue == 'Week' ||
+              profitsPerTimeTimePeriodValue == 'Month') {
+            itemCONTRIBInProfitsPoints =
+                itemCONTRIBInProfitsPoints.reversed.toList();
+          } else {
+            itemCONTRIBInProfitsPoints = itemCONTRIBInProfitsPoints;
+          }
+        });
+      }
+    });
+  }
+
+  List<ChartData> itemCONTRIBInProfitsPoints = [];
+
+  String profitsPerTimeTimePeriodCardValue = 'Week';
+
+  bool getProfitsPerTimeCardData = false;
+
+  void getSalesPerTimePeriodCardPoints() async {
+    http
+        .post(
+            Uri.parse(
+                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_statistics_category/'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: jsonEncode({
+              'statistics_type': 'profits',
+              'period': profitsPerTimeTimePeriodCardValue,
+              'stock_list': [5, 6]
+            }))
+        .then((value) {
+      if (value.statusCode == 200) {
+        profitsPerTimePeriodValue = 0;
+        Map data = jsonDecode(value.body);
+        for (String key in data.keys) {
+          profitsPerTimePeriodValue += data[key] ?? 0;
+        }
+        setState(() {
+          profitsPerTimePeriodValue;
+        });
+      }
+    });
+  }
+
+  double profitsPerTimePeriodValue = 0;
+
+  String avgSalesTimePeriodCardValue = 'Week';
+
+  bool getAvgSalesCardData = false;
+
+  void getAvgSalesPeriodCardPoints() async {
+    http
+        .post(
+            Uri.parse(
+                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_statistics_category/'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: jsonEncode({
+              'statistics_type': 'profits',
+              'period': avgSalesTimePeriodCardValue,
+              'stock_list': [5, 6]
+            }))
+        .then((value) {
+      if (value.statusCode == 200) {
+        avgSalesPeriodValue = 0;
+        Map data = jsonDecode(value.body);
+        for (String key in data.keys) {
+          avgSalesPeriodValue += data[key] ?? 0;
+        }
+        setState(() {
+          avgSalesPeriodValue = double.parse(
+              (avgSalesPeriodValue / data.keys.length).toStringAsFixed(2));
+        });
+      }
+    });
+  }
+
+  double avgSalesPeriodValue = 0;
+
+  @override
+  void initState() {
+    getSalesPerTimePeriodPoints();
+    getWorstItemBySalesPoints();
+    getItemCONTRIBInSalesPoints();
+    getSalesPerTimePeriodCardPoints();
+    getAvgSalesPeriodCardPoints();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<String> _timePeriodsList = [
-      'Day',
-      'Week',
-      'Month',
-    ];
-    String dropdownValue = _timePeriodsList[0];
-
+    if (getProfitsPerTimeData) {
+      getSalesPerTimePeriodPoints();
+      getProfitsPerTimeData = false;
+    }
+    if (getWorstItemByProfitsData) {
+      getWorstItemBySalesPoints();
+      getWorstItemByProfitsData = false;
+    }
+    if (getItemCONTRIBInProfitsData) {
+      getItemCONTRIBInSalesPoints();
+      getItemCONTRIBInProfitsData = false;
+    }
+    if (getProfitsPerTimeCardData) {
+      getSalesPerTimePeriodCardPoints();
+      getProfitsPerTimeCardData = false;
+    }
+    if (getAvgSalesCardData) {
+      getAvgSalesPeriodCardPoints();
+      getAvgSalesCardData = false;
+    }
     return Expanded(
       child: ListView(
         children: [
-          LineChartBox(
-            data: data,
-            title: 'PROFITS PER TIME PERIOD',
-            value: 82.350,
-            valuePostfix: 'JOD',
-            isUp: true,
-            isMoney: true,
-            timePeriod: 'm',
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 9 +
+                MediaQuery.of(context).size.width / 7,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                CardBox(
+                  title: 'Profits PER TIME PERIOD',
+                  value: profitsPerTimePeriodValue,
+                  valuePostfix: 'JOD',
+                  onChanged: (value) {
+                    setState(() {
+                      profitsPerTimeTimePeriodCardValue = value;
+                      getProfitsPerTimeCardData = true;
+                    });
+                  },
+                  // isUp: true,
+                  isMoney: true,
+                  timePeriod: profitsPerTimeTimePeriodCardValue,
+                ),
+                const SizedBox(width: 10),
+                CardBox(
+                  title: 'AVG SALES',
+                  value: avgSalesPeriodValue,
+                  valuePostfix: avgSalesTimePeriodCardValue == 'Day'
+                      ? 'JOD per hour'
+                      : avgSalesTimePeriodCardValue == 'Year'
+                          ? 'JOD per month'
+                          : 'JOD per day',
+                  onChanged: (value) {
+                    setState(() {
+                      avgSalesTimePeriodCardValue = value;
+                      getAvgSalesCardData = true;
+                    });
+                  },
+                  // isUp: true,
+                  isMoney: true,
+                  timePeriod: avgSalesTimePeriodCardValue,
+                ),
+              ],
+            ),
           ),
           LineChartBox(
-            data: data,
-            title: 'PROFITS PER TIME PERIOD',
-            value: 82.350,
-            valuePostfix: 'JOD',
-            isUp: true,
-            isMoney: true,
-            timePeriod: 'm',
-          ),
-          LineChartBox(
-            data: data,
-            title: 'PROFITS PER TIME PERIOD',
-            value: 82.350,
-            valuePostfix: 'JOD',
-            isUp: true,
-            isMoney: true,
-            timePeriod: 'm',
-          ),
-          ColumnChartBox(
-            data: data,
-            title: 'PROFITS ON EACH DAY',
-            value: 82.350,
-            valuePostfix: 'JOD',
-            isUp: true,
-            isMoney: true,
-            timePeriod: 'm',
-          ),
-          ColumnChartBox(
-            data: data,
-            title: 'PROFITS ON EACH HOUR',
-            value: 82.350,
-            valuePostfix: 'JOD',
-            isUp: true,
-            isMoney: true,
-            timePeriod: 'm',
-          ),
-          BarChartBox(
-            data: data,
-            title: 'BEST ITEMS BY PROFITS',
-            value: 82.350,
-            valuePostfix: 'JOD',
-            isUp: true,
-            isMoney: true,
-            timePeriod: 'm',
-          ),
-          BarChartBox(
-            data: data,
-            title: 'WORST ITEMS BY PROFITS',
-            value: 82.350,
-            valuePostfix: 'JOD',
-            isUp: true,
-            isMoney: true,
-            timePeriod: 'm',
+            data: ProfitsPerTimePeriodPoints,
+            title: 'Profits PER TIME PERIOD',
+            onChanged: (value) {
+              setState(() {
+                profitsPerTimeTimePeriodValue = value;
+                getProfitsPerTimeData = true;
+              });
+            },
+            // value: 82.350,
+            // valuePostfix: 'JOD',
+            // isUp: true,
+            // isMoney: true,
+            timePeriod: profitsPerTimeTimePeriodValue,
           ),
           DoughnutChartBox(
-            data: data,
-            title: 'ITEM CONTRIB IN PROFS',
-            value: 82.350,
-            valuePostfix: 'JOD',
-            isUp: true,
-            isMoney: true,
-            timePeriod: 'm',
+            data: itemCONTRIBInProfitsPoints,
+            title: 'ITEM CONTRIB IN Profits',
+            onChanged: (value) {
+              setState(() {
+                itemCONTRIBInProfitsTimePeriodValue = value;
+                getItemCONTRIBInProfitsData = true;
+              });
+            },
+            timePeriod: itemCONTRIBInProfitsTimePeriodValue,
           ),
-          CardBox(
-            data: data,
-            title: 'PROFITS PER TIME PERIOD',
-            value: 82.350,
-            valuePostfix: 'JOD',
-            isUp: true,
-            isMoney: true,
-            timePeriod: 'm',
-          ),
-          CardBox(
-            data: data,
-            title: 'AVG PROFITS',
-            value: 82.350,
-            valuePostfix: 'JOD',
-            isUp: true,
-            isMoney: true,
-            timePeriod: 'm',
-          ),
-          CardBox(
-            data: data,
-            title: 'TOP ITEM PROFITS',
-            value: 82.350,
-            valuePostfix: 'JOD',
-            isUp: true,
-            isMoney: true,
-            timePeriod: 'm',
+          BarChartBox(
+            data: worstItemByProfitsPoints,
+            title: 'WORST ITEMS BY Profits',
+            onChanged: (value) {
+              setState(() {
+                worstItemByProfitsTimePeriodValue = value;
+                getWorstItemByProfitsData = true;
+              });
+            },
+            // value: 0,
+            // valuePostfix: '',
+            // isUp: true,
+            // isMoney: true,
+            timePeriod: worstItemByProfitsTimePeriodValue,
           ),
         ],
       ),

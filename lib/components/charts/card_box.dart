@@ -8,19 +8,19 @@ import '../current_state.dart';
 import 'chart_data.dart';
 
 class CardBox extends StatefulWidget {
-  final List<ChartData> data;
   final String title;
-  final double value;
-  final bool isUp;
+  final dynamic value;
+  final Function onChanged;
+  // final bool isUp;
   final bool isMoney;
   final String timePeriod;
   final String valuePostfix;
 
   const CardBox({
-    required this.data,
     required this.title,
     required this.value,
-    required this.isUp,
+    required this.onChanged,
+    // required this.isUp,
     required this.isMoney,
     required this.timePeriod,
     required this.valuePostfix,
@@ -32,23 +32,18 @@ class CardBox extends StatefulWidget {
 
 class _CardBoxState extends State<CardBox> {
   List<String> timePeriods = ['Day', 'Week', 'Month', 'Year', 'Choose Date'];
-  late String timePeriodValue = timePeriods[0];
+  late String timePeriodValue = widget.timePeriod;
   @override
   Widget build(BuildContext context) {
     double _numberHeight = MediaQuery.of(context).size.width / 10;
-    double percentage = 12.7;
+    // double percentage = 12.7;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
       child: Container(
-        width: double.infinity,
+        width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height / 9 + _numberHeight,
         decoration: BoxDecoration(
           color: Colors.white,
-          // image: DecorationImage(
-          //   image: AssetImage('assets/images/bg_1.png'),
-          //   fit: BoxFit.cover,
-          //   alignment: Alignment.topCenter,
-          // ),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
@@ -92,43 +87,44 @@ class _CardBoxState extends State<CardBox> {
                           value: timePeriodValue,
                           isDense: true,
                           onChanged: (value) {
-                            setState(() async {
+                            setState(() {
                               timePeriodValue = value!;
-                              if (timePeriodValue == timePeriods[4]) {
-                                DateTime? pickedDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(
-                                      2000), //DateTime.now() - not to allow to choose before today.
-                                  lastDate: DateTime(2101),
-                                  builder: (context, child) {
-                                    return Theme(
-                                      data: ThemeData.light().copyWith(
-                                        primaryColor:
-                                            kBIASBlueColor.withOpacity(0.9),
-                                        colorScheme: ColorScheme.light(
-                                            primary: kBIASBlueColor
-                                                .withOpacity(0.9)),
-                                        buttonTheme: const ButtonThemeData(
-                                            textTheme: ButtonTextTheme.primary),
-                                      ),
-                                      child: child!,
-                                    );
-                                  },
-                                );
-
-                                if (pickedDate != null) {
-                                  String formattedDate =
-                                      DateFormat('yyyy-MM-dd')
-                                          .format(pickedDate);
-
-                                  setState(() {
-                                    timePeriods[4] = formattedDate;
-                                    timePeriodValue = formattedDate;
-                                  });
-                                }
-                              }
                             });
+                            widget.onChanged(value);
+                            // if (timePeriodValue == timePeriods[4]) {
+                            //   DateTime? pickedDate = await showDatePicker(
+                            //     context: context,
+                            //     initialDate: DateTime.now(),
+                            //     firstDate: DateTime(
+                            //         2000), //DateTime.now() - not to allow to choose before today.
+                            //     lastDate: DateTime(2101),
+                            //     builder: (context, child) {
+                            //       return Theme(
+                            //         data: ThemeData.light().copyWith(
+                            //           primaryColor:
+                            //               kBIASBlueColor.withOpacity(0.9),
+                            //           colorScheme: ColorScheme.light(
+                            //               primary: kBIASBlueColor
+                            //                   .withOpacity(0.9)),
+                            //           buttonTheme: const ButtonThemeData(
+                            //               textTheme: ButtonTextTheme.primary),
+                            //         ),
+                            //         child: child!,
+                            //       );
+                            //     },
+                            //   );
+                            //
+                            //   if (pickedDate != null) {
+                            //     String formattedDate =
+                            //         DateFormat('yyyy-MM-dd')
+                            //             .format(pickedDate);
+                            //
+                            //     setState(() {
+                            //       timePeriods[4] = formattedDate;
+                            //       timePeriodValue = formattedDate;
+                            //     });
+                            //   }
+                            // }
                           },
                           items: timePeriods.map((String value) {
                             return DropdownMenuItem<String>(
@@ -168,7 +164,7 @@ class _CardBoxState extends State<CardBox> {
                       ],
                     ),
                     SizedBox(width: 10),
-                    currentState(isUp: widget.isUp, percentage: percentage),
+                    // currentState(isUp: widget.isUp, percentage: percentage),
                   ],
                 ),
               ),

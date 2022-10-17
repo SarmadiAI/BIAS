@@ -1,32 +1,61 @@
-import 'dart:ui';
+import 'dart:convert';
+
 import 'package:bias/components/bias_date_field.dart';
-import 'package:bias/components/bias_dropdown_list.dart';
 import 'package:bias/components/bias_heading.dart';
-import 'package:bias/components/bias_image_field.dart';
 import 'package:bias/components/bias_subtitle.dart';
 import 'package:bias/components/bias_text_field.dart';
 import 'package:bias/components/bias_title.dart';
-import 'package:bias/screens/home_screen_bodies/current_order_body.dart';
-import 'package:bias/screens/home_screen_bodies/insights_body.dart';
-import 'package:bias/screens/home_screen_bodies/inventory_body.dart';
-import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:bias/components/bias_text.dart';
 import 'package:bias/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
+import '../components/bias_dropdown_list.dart';
+import '../components/bias_image_field.dart';
+import '../providers/stock_provider.dart';
+import 'home_screen.dart';
 
 class EditProductScreen extends StatefulWidget {
-  const EditProductScreen({Key? key}) : super(key: key);
+  final int? itemId;
+  const EditProductScreen({super.key, this.itemId});
   static const String id = "edit_product_screen";
 
   @override
-  _EditProductScreenState createState() => _EditProductScreenState();
+  EditProductScreenState createState() => EditProductScreenState();
 }
 
-class _EditProductScreenState extends State<EditProductScreen> {
+class EditProductScreenState extends State<EditProductScreen> {
+  List data = [];
+
+  @override
+  void initState() {
+    data = Provider.of<Stock>(context, listen: false).stocks;
+    super.initState();
+  }
+
+  TextEditingController brandName = TextEditingController(text: null);
+  TextEditingController description = TextEditingController(text: null);
+  TextEditingController fullQuantity = TextEditingController(text: null);
+  String? section;
+  TextEditingController supplierPrice = TextEditingController(text: null);
+  TextEditingController sellingPrice = TextEditingController(text: null);
+  TextEditingController expirationDate = TextEditingController(text: null);
+  TextEditingController reshippingDays = TextEditingController(text: null);
+  XFile? image;
+
+  bool editController = true;
+
   @override
   Widget build(BuildContext context) {
+    Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    if (editController) {
+      section = data[arguments['itemId']]['section'];
+      expirationDate.text = '${data[arguments['itemId']]['expiration_date']}';
+      editController = false;
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -36,7 +65,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
             Container(
               height: 100,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
               ),
               child: Padding(
@@ -48,25 +77,26 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        BIASHeading('Edit Product'),
+                        const BIASHeading('Edit Product'),
                         Row(
                           children: [
                             InkWell(
                               onTap: () {
-                                showDataAlert();
+                                showDataAlert(data[arguments['itemId']]['id'],
+                                    arguments['itemId']);
                               },
-                              child: Icon(
+                              child: const Icon(
                                 CupertinoIcons.trash,
                                 color: kBIASRedColor,
                                 size: 28,
                               ),
                             ),
-                            SizedBox(width: 15),
+                            const SizedBox(width: 15),
                             InkWell(
                               onTap: () {
                                 Navigator.pop(context);
                               },
-                              child: Icon(
+                              child: const Icon(
                                 CupertinoIcons.arrow_right,
                                 color: kBIASDarkGrayColor,
                                 size: 28,
@@ -84,54 +114,96 @@ class _EditProductScreenState extends State<EditProductScreen> {
               child: ListView(children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  // child: Column(
-                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //   children: [
-                  //     SizedBox(height: 10),
-                  //     BIASTitle('Required Fields'),
-                  //     BIASSubtitle(
-                  //         'Essensial fields you need to input to get basic insights'),
-                  //     SizedBox(height: 20),
-                  //     BIASTextField(
-                  //       labelText: 'Product Title (Brand)',
-                  //       innerText: 'Water Bottle',
-                  //     ),
-                  //     SizedBox(height: 15),
-                  //     BIASTextField(
-                  //         labelText: 'Product Subtitle (Description)'),
-                  //     SizedBox(height: 15),
-                  //     BIASTextField(
-                  //         labelText: 'Quantity', isIntegerNumber: true),
-                  //     SizedBox(height: 15),
-                  //     BIASDropdownList(
-                  //       labelText: 'Section',
-                  //       list: [
-                  //         'Water Container Refillings',
-                  //         'Water Bottles',
-                  //         'Other'
-                  //       ],
-                  //     ),
-                  //     SizedBox(height: 30),
-                  //     BIASTitle('Optional Fields'),
-                  //     BIASSubtitle('Gain more deeper insights and predictions'),
-                  //     SizedBox(height: 20),
-                  //     BIASTextField(
-                  //         labelText: 'Supplier Price (Cost)',
-                  //         isFloatNumber: true),
-                  //     SizedBox(height: 15),
-                  //     BIASTextField(
-                  //         labelText: 'Retail/Selling Price',
-                  //         isFloatNumber: true),
-                  //     SizedBox(height: 15),
-                  //     BIASDateField(labelText: 'Expiration Date'),
-                  //     SizedBox(height: 15),
-                  //     BIASTextField(
-                  //         labelText: 'Re-shipping Days', isIntegerNumber: true),
-                  //     SizedBox(height: 15),
-                  //     BIASImageField(labelText: 'Image'),
-                  //     SizedBox(height: 20),
-                  //   ],
-                  // ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10),
+                      const BIASTitle('Required Fields'),
+                      BIASSubtitle(
+                          'Essensial fields you need to input to get basic insights'),
+                      const SizedBox(height: 20),
+                      BIASTextField(
+                        labelText: 'Product Title (Brand)',
+                        controller: brandName,
+                        innerText: data[arguments['itemId']]['brand_name'],
+                      ),
+                      const SizedBox(height: 15),
+                      BIASTextField(
+                        labelText: 'Product Subtitle (Description)',
+                        controller: description,
+                        innerText: data[arguments['itemId']]['description'],
+                      ),
+                      const SizedBox(height: 15),
+                      BIASTextField(
+                        labelText: 'Quantity',
+                        isIntegerNumber: true,
+                        controller: fullQuantity,
+                        innerText:
+                            '${data[arguments['itemId']]['available_quantity']}',
+                      ),
+                      const SizedBox(height: 15),
+                      BIASDropdownList(
+                        labelText: 'Section',
+                        list: const [
+                          'Water Container Refillings',
+                          'Water Bottles',
+                          'Other'
+                        ],
+                        controller: section,
+                        onChange: (value) {
+                          setState(() {
+                            section = value;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 30),
+                      const BIASTitle('Optional Fields'),
+                      BIASSubtitle('Gain more deeper insights and predictions'),
+                      const SizedBox(height: 20),
+                      BIASTextField(
+                        labelText: 'Supplier Price (Cost)',
+                        isFloatNumber: true,
+                        controller: supplierPrice,
+                        innerText: data[arguments['itemId']]['supplier_price'],
+                      ),
+                      const SizedBox(height: 15),
+                      BIASTextField(
+                        labelText: 'Retail/Selling Price',
+                        isFloatNumber: true,
+                        controller: sellingPrice,
+                        innerText: data[arguments['itemId']]['selling_price'],
+                      ),
+                      const SizedBox(height: 15),
+                      BIASDateField(
+                        labelText: 'Expiration Date',
+                        controller: expirationDate,
+                      ),
+                      const SizedBox(height: 15),
+                      BIASTextField(
+                        labelText: 'Re-shipping Days',
+                        isIntegerNumber: true,
+                        controller: reshippingDays,
+                        innerText:
+                            '${data[arguments['itemId']]['reshipping_days']}',
+                      ),
+                      const SizedBox(height: 15),
+                      BIASImageField(
+                        labelText: 'Image',
+                        image: image,
+                        getImage: (pickedImage) {
+                          setState(() {
+                            image = pickedImage;
+                          });
+                        },
+                        deleteImage: () {
+                          setState(() {
+                            image = null;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
                 ),
               ]),
             ),
@@ -145,24 +217,53 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 0,
                     blurRadius: 2,
-                    offset: Offset(0, 0), // changes position of shadow
+                    offset: const Offset(0, 0), // changes position of shadow
                   ),
                 ],
               ),
               child: Padding(
                 padding: const EdgeInsets.only(
                     left: 20, right: 20, top: 10, bottom: 20),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: kBIASBlueColor.withOpacity(0.9),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: BIASText(
-                      'Edit Product',
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                child: InkWell(
+                  onTap: () async {
+                    Provider.of<Stock>(context, listen: false).updateStock({
+                      'id': data[arguments['itemId']]['id'],
+                      'brand_name':
+                          brandName.text == '' ? null : brandName.text,
+                      'description':
+                          description.text == '' ? null : description.text,
+                      'section': section,
+                      'available_quantity': fullQuantity.text == ''
+                          ? null
+                          : int.parse(fullQuantity.text),
+                      'supplier_price':
+                          supplierPrice.text == '' ? null : supplierPrice.text,
+                      'selling_price':
+                          sellingPrice.text == '' ? null : sellingPrice.text,
+                      'expiration_date': expirationDate.text == ''
+                          ? null
+                          : expirationDate.text,
+                      'reshipping_days': reshippingDays.text == ''
+                          ? null
+                          : reshippingDays.text,
+                      'image': image == null
+                          ? null
+                          : base64.encode(await image!.readAsBytes()),
+                    }, true, arguments['itemId']);
+                    Navigator.pushNamed(context, HomeScreen.id);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: kBIASBlueColor.withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Center(
+                      child: BIASText(
+                        'Edit Product',
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),
@@ -174,25 +275,25 @@ class _EditProductScreenState extends State<EditProductScreen> {
     );
   }
 
-  showDataAlert() {
+  showDataAlert(id, fakeId) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(
                 20.0,
               ),
             ),
           ),
-          contentPadding: EdgeInsets.only(
+          contentPadding: const EdgeInsets.only(
             top: 10.0,
           ),
-          title: BIASTitle(
+          title: const BIASTitle(
             'Delete Product',
           ),
-          content: Container(
+          content: SizedBox(
             height: 190,
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(8.0),
@@ -201,14 +302,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: BIASText(
                       "Are you sure you want to delete this product?",
                       fontSize: 15,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -221,7 +322,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               color: kBIASRedColor.withOpacity(0.9),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Center(
+                            child: const Center(
                               child: BIASText(
                                 'Go Back',
                                 color: Colors.white,
@@ -231,10 +332,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         InkWell(
                           onTap: () {
-                            Navigator.pop(context);
+                            Provider.of<Stock>(context, listen: false)
+                                .deleteStock(id, fakeId);
+
+                            Navigator.pushNamed(context, HomeScreen.id);
                           },
                           child: Container(
                             height: 40,
@@ -261,10 +365,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   ),
                   Container(
                     padding: const EdgeInsets.all(8.0),
-                    child: BIASText('Note'),
+                    child: const BIASText('Note'),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: BIASText(
                       'Deleting a product means that its trace will be gone forever from the database, this will cause data to be never retrieved back or analyzed. Be Careful.',
                       fontSize: 13,

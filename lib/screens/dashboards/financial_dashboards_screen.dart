@@ -5,17 +5,12 @@ import 'package:bias/screens/dashboards/revenues_dashboard_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/bias_heading.dart';
+import '../../../components/bias_heading.dart';
 
-import '../../components/charts/bar_chart_box.dart';
-import '../../components/charts/card_box.dart';
-import '../../components/charts/chart_data.dart';
-import '../../components/charts/column_chart_box.dart';
-import '../../components/charts/doughnut_chart_box.dart';
-import '../../components/charts/line_chart_box.dart';
-import '../../components/filter_dialog.dart';
+import '../../../components/charts/chart_data.dart';
+import '../../../components/filter_dialog.dart';
 
-import '../../constants.dart';
+import '../../../constants.dart';
 
 class FinancialDashboardsScreen extends StatefulWidget {
   const FinancialDashboardsScreen({Key? key}) : super(key: key);
@@ -39,23 +34,24 @@ class _FinancialDashboardsScreenState extends State<FinancialDashboardsScreen> {
   List<String> financialDashboards = [
     'Revenues',
     'Profits',
-    'Costs',
+    // 'Costs',
   ];
   late String currentFinancialDashboard = financialDashboards[0];
   @override
   Widget build(BuildContext context) {
     Map<String, Widget> dashboards = {
-      'Revenues': RevenuesDashboardScreen(),
+      'Revenues': const RevenuesDashboardScreen(),
       'Profits': ProfitsDashboardScreen(),
-      'Costs': CostsDashboardScreen(),
+      // 'Costs': CostsDashboardScreen(),
     };
 
-    List<String> _timePeriodsList = [
+    List<String> timePeriodsList = [
       'Day',
       'Week',
       'Month',
     ];
-    String dropdownValue = _timePeriodsList[0];
+
+    String dropdownValue = timePeriodsList[0];
 
     return Scaffold(
       body: SafeArea(
@@ -92,7 +88,7 @@ class _FinancialDashboardsScreenState extends State<FinancialDashboardsScreen> {
                                   size: 28,
                                 ),
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               InkWell(
                                 onTap: () {
                                   Navigator.pop(context);
@@ -111,13 +107,13 @@ class _FinancialDashboardsScreenState extends State<FinancialDashboardsScreen> {
                         alignment: Alignment.topLeft,
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: kBIASDarkGrayColor,
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Poppins',
                             ),
-                            icon: Icon(
+                            icon: const Icon(
                               CupertinoIcons.ellipsis,
                               color: Colors.white,
                             ),
@@ -157,7 +153,7 @@ class _FinancialDashboardsScreenState extends State<FinancialDashboardsScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        return FilterDialog();
+        return const FilterDialog();
       },
     );
   }

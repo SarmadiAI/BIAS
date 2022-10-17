@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +11,7 @@ class ProductInventoryCard extends StatefulWidget {
   final String? subtitle;
   final int? availableQuantity;
   final int? soldQuantity;
-  final ImageProvider<Object>? image;
+  final String? image;
   final void Function()? onTap;
 
   const ProductInventoryCard({
@@ -110,8 +112,9 @@ class _ProductInventoryCardState extends State<ProductInventoryCard> {
                       borderRadius: BorderRadius.circular(6),
                       color: CupertinoColors.extraLightBackgroundGray,
                       image: DecorationImage(
-                        image: widget.image ??
-                            const AssetImage(
+                        image: widget.image != null
+                            ? Image.memory(base64Decode(widget.image!)).image
+                            : const AssetImage(
                                 'assets/images/water_container.png'),
                         fit: BoxFit.cover,
                         alignment: Alignment.topCenter,

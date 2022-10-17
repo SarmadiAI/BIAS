@@ -43,7 +43,7 @@ dependencies:
   intl: ^0.17.0
   image_picker: ^0.8.5+3
   provider: ^6.0.3
-  http: ^0.13.5
+#  http: ^0.13.5
   syncfusion_flutter_datepicker: ^20.3.48
   parent_child_checkbox: ^0.0.3
 

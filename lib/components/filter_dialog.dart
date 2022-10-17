@@ -35,19 +35,7 @@ class FilterDialog extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              // ParentChildCheckbox(
-              //   parent: Text('Parent 1'),
-              //   children: [
-              //     Text('Children 1.1'),
-              //     Text('Children 1.2'),
-              //     Text('Children 1.3'),
-              //     Text('Children 1.4'),
-              //   ],
-              //   parentCheckboxColor: kBIASBlueColor.withOpacity(0.9),
-              //   childrenCheckboxColor: kBIASBlueColor.withOpacity(0.6),
-              // ),
               ItemsList(),
-
               SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.all(8.0),

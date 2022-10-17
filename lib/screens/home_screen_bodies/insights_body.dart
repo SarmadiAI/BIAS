@@ -9,7 +9,7 @@ import '../../components/bias_heading.dart';
 import '../../components/bias_title.dart';
 import '../../constants.dart';
 import '../dashboards/customers_dashboard_screen.dart';
-import '../financial_dashboards_screen.dart';
+import '../dashboards/financial_dashboards_screen.dart';
 
 class InsightsBody extends StatefulWidget {
   const InsightsBody({Key? key}) : super(key: key);

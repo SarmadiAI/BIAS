@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:bias/constants.dart';
@@ -8,7 +9,7 @@ import 'input_border.dart';
 
 class BIASStaticImageField extends StatefulWidget {
   final String labelText;
-  final ImageProvider<Object>? image;
+  final String? image;
 
   const BIASStaticImageField({
     required this.labelText,
@@ -57,7 +58,7 @@ class _BIASStaticImageFieldState extends State<BIASStaticImageField> {
             : BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  image: widget.image!,
+                  image: Image.memory(base64Decode(widget.image!)).image,
                   fit: BoxFit.cover,
                   alignment: Alignment.topCenter,
                 ),

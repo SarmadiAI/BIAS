@@ -23,6 +23,19 @@ class _BIASDateFieldState extends State<BIASDateField> {
   bool colorVisibility = false;
 
   @override
+  void initState() {
+    super.initState();
+    colorVisibility = widget.controller.text != '';
+    setState(() {
+      if (widget.controller.text == '') {
+        colorVisibility = false;
+      } else {
+        colorVisibility = true;
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FocusScope(
       child: Focus(

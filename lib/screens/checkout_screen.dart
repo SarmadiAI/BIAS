@@ -9,6 +9,7 @@ import '../components/bias_title.dart';
 import '../components/product_shopping_card.dart';
 import '../constants.dart';
 import '../providers/receipt_provider.dart';
+import '../providers/stock_provider.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
     double subTotal = 0;
     Map order = Provider.of<Receipt>(context, listen: true).receipt;
     for (var item in order.values) {
-      subTotal += item[0] * item[1];
+      subTotal += item[0] * double.parse(item[1]);
     }
     return subTotal.toStringAsFixed(2);
   }
@@ -34,7 +35,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Map receipt = Provider.of<Receipt>(context, listen: false).receipt;
+    Map receipt = Provider.of<Receipt>(context, listen: true).receipt;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -82,12 +83,19 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                   child: BIASTitle('Current Order'),
                 ),
                 for (var item in receipt.keys)
-                  ProductShoppingCard(
-                      id: item,
-                      title: receipt[item][2],
-                      subtitle: receipt[item][3],
-                      initialQuantity: receipt[item][0],
-                      price: receipt[item][1]),
+                  Column(
+                    children: [
+                      ProductShoppingCard(
+                        id: item,
+                        title: receipt[item][2],
+                        subtitle: receipt[item][3],
+                        initialQuantity: receipt[item][0],
+                        price: receipt[item][1],
+                        image: receipt[item][4],
+                      ),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
                 const SizedBox(height: 10),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
@@ -174,7 +182,15 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Provider.of<Receipt>(context, listen: false)
+                              .createReceipt()
+                              .then((value) {
+                            Provider.of<Stock>(context, listen: false)
+                                .getStocks();
+                            Navigator.pop(context);
+                          });
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             color: kBIASBlueColor.withOpacity(0.9),

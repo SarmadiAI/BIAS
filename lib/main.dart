@@ -10,7 +10,7 @@ import 'package:bias/screens/dashboards/revenues_dashboard_screen.dart';
 import 'package:bias/screens/edit_product_screen.dart';
 import 'package:bias/screens/home_screen.dart';
 import 'package:bias/screens/product_info_screen.dart';
-import 'package:bias/screens/financial_dashboards_screen.dart';
+import 'package:bias/screens/dashboards/financial_dashboards_screen.dart';
 import 'package:bias/screens/dashboards/sales_dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,17 +46,18 @@ class BIAS extends StatelessWidget {
       title: 'BIAS',
       routes: {
         AddProductScreen.id: (context) => AddProductScreen(),
-        ChartsTest.id: (context) => ChartsTest(),
+
         CheckoutScreen.id: (context) => CheckoutScreen(),
-        CostsDashboardScreen.id: (context) => CostsDashboardScreen(),
+        // CostsDashboardScreen.id: (context) => CostsDashboardScreen(),
         CustomersDashboardScreen.id: (context) => CustomersDashboardScreen(),
+        // ProfitsDashboardScreen.id: (context) => ProfitsDashboardScreen(),
+        RevenuesDashboardScreen.id: (context) => RevenuesDashboardScreen(),
+        FinancialDashboardsScreen.id: (context) => FinancialDashboardsScreen(),
+        // ChartsTest.id: (context) => ChartsTest(),
         EditProductScreen.id: (context) => EditProductScreen(),
         HomeScreen.id: (context) => HomeScreen(),
         ProductInfoScreen.id: (context) => ProductInfoScreen(),
-        ProfitsDashboardScreen.id: (context) => ProfitsDashboardScreen(),
-        RevenuesDashboardScreen.id: (context) => RevenuesDashboardScreen(),
         SalesDashboardScreen.id: (context) => SalesDashboardScreen(),
-        FinancialDashboardsScreen.id: (context) => FinancialDashboardsScreen(),
       },
       initialRoute: HomeScreen.id,
     );

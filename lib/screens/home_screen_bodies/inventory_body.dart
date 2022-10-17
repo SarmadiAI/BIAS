@@ -107,34 +107,31 @@ List<Widget> stocksWidget(BuildContext context) {
       waterRefill.add(ProductInventoryCard(
           title: data[i]['brand_name'],
           subtitle: data[i]['description'],
-          soldQuantity:
-              data[i]['full_quantity'] - data[i]['available_quantity'],
+          soldQuantity: data[i]['sold_quantity'],
           availableQuantity: data[i]['available_quantity'],
           image: data[i]['image'],
           onTap: () => Navigator.pushNamed(context, ProductInfoScreen.id,
-              arguments: {'itemId': data[i]['id']})));
+              arguments: {'itemId': i})));
       waterRefill.add(const SizedBox(height: 10));
     } else if (data[i]['section'] == 'Water Bottles') {
       waterBottles.add(ProductInventoryCard(
           title: data[i]['brand_name'],
           subtitle: data[i]['description'],
-          soldQuantity:
-              data[i]['full_quantity'] - data[i]['available_quantity'],
+          soldQuantity: data[i]['sold_quantity'],
           availableQuantity: data[i]['available_quantity'],
           image: data[i]['image'],
           onTap: () => Navigator.pushNamed(context, ProductInfoScreen.id,
-              arguments: {'itemId': data[i]['id']})));
+              arguments: {'itemId': i})));
       waterBottles.add(const SizedBox(height: 10));
     } else {
       other.add(ProductInventoryCard(
           title: data[i]['brand_name'],
           subtitle: data[i]['description'],
-          soldQuantity:
-              data[i]['full_quantity'] - data[i]['available_quantity'],
+          soldQuantity: data[i]['sold_quantity'],
           availableQuantity: data[i]['available_quantity'],
           image: data[i]['image'],
           onTap: () => Navigator.pushNamed(context, ProductInfoScreen.id,
-              arguments: {'itemId': data[i]['id']})));
+              arguments: {'itemId': i})));
       other.add(const SizedBox(height: 10));
     }
   }

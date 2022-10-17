@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bias/providers/receipt_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +12,9 @@ class ProductShoppingCard extends StatefulWidget {
   final String id;
   final String title;
   final String? subtitle;
-  final double? price;
+  final String? price;
   int initialQuantity;
-  final ImageProvider<Object>? image;
+  final String? image;
 
   ProductShoppingCard({
     super.key,
@@ -29,7 +31,16 @@ class ProductShoppingCard extends StatefulWidget {
 }
 
 class _ProductShoppingCardState extends State<ProductShoppingCard> {
-  String _totalPrice = 0.toStringAsFixed(2);
+  String? _totalPrice;
+
+  @override
+  void initState() {
+    widget.price == null
+        ? _totalPrice = '--'
+        : _totalPrice = (widget.initialQuantity * double.parse(widget.price!))
+            .toStringAsFixed(2);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +94,7 @@ class _ProductShoppingCardState extends State<ProductShoppingCard> {
                         SizedBox(
                           width: 100,
                           child: BIASText(
-                            '${widget.price == 0 ? '--' : _totalPrice} JOD',
+                            '${widget.price == '0.00' ? '--' : _totalPrice} JOD',
                             fontSize: 13,
                           ),
                         ),
@@ -96,17 +107,19 @@ class _ProductShoppingCardState extends State<ProductShoppingCard> {
                                   widget.initialQuantity == 0
                                       ? null
                                       : widget.initialQuantity--;
-                                  _totalPrice =
-                                      (widget.initialQuantity * widget.price!)
-                                          .toStringAsFixed(2);
+                                  _totalPrice = (widget.initialQuantity *
+                                          double.parse(widget.price!))
+                                      .toStringAsFixed(2);
                                 });
                                 Provider.of<Receipt>(context, listen: false)
                                     .addItem(
-                                        widget.id,
-                                        widget.initialQuantity,
-                                        widget.price,
-                                        widget.title,
-                                        widget.subtitle);
+                                  widget.id,
+                                  widget.initialQuantity,
+                                  widget.price,
+                                  widget.title,
+                                  widget.subtitle,
+                                  widget.image,
+                                );
                               },
                               child: const Icon(
                                 CupertinoIcons.minus,
@@ -125,18 +138,20 @@ class _ProductShoppingCardState extends State<ProductShoppingCard> {
                               onTap: () {
                                 setState(() {
                                   widget.initialQuantity++;
-                                  _totalPrice =
-                                      (widget.initialQuantity * widget.price!)
-                                          .toStringAsFixed(2);
+                                  _totalPrice = (widget.initialQuantity *
+                                          double.parse(widget.price!))
+                                      .toStringAsFixed(2);
                                 });
 
                                 Provider.of<Receipt>(context, listen: false)
                                     .addItem(
-                                        widget.id,
-                                        widget.initialQuantity,
-                                        widget.price,
-                                        widget.title,
-                                        widget.subtitle);
+                                  widget.id,
+                                  widget.initialQuantity,
+                                  widget.price,
+                                  widget.title,
+                                  widget.subtitle,
+                                  widget.image,
+                                );
                               },
                               child: const Icon(
                                 CupertinoIcons.plus,
@@ -158,8 +173,10 @@ class _ProductShoppingCardState extends State<ProductShoppingCard> {
                     borderRadius: BorderRadius.circular(6),
                     color: CupertinoColors.extraLightBackgroundGray,
                     image: DecorationImage(
-                      image: widget.image ??
-                          const AssetImage('assets/images/water_container.png'),
+                      image: widget.image != null
+                          ? Image.memory(base64Decode(widget.image!)).image
+                          : const AssetImage(
+                              'assets/images/water_container.png'),
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
                     )),

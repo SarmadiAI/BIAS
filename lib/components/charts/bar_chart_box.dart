@@ -4,27 +4,29 @@ import 'package:intl/intl.dart';
 
 import '../../constants.dart';
 import '../bias_text.dart';
-import '../current_state.dart';
 import 'bar_chart.dart';
 import 'chart_data.dart';
 
 class BarChartBox extends StatefulWidget {
   final List<ChartData> data;
   final String title;
-  final double value;
-  final bool isUp;
-  final bool isMoney;
+  final Function onChanged;
+  // final double value;
+  // final bool isUp;
+  // final bool isMoney;
   final String timePeriod;
-  final String valuePostfix;
+  // final String valuePostfix;
 
   const BarChartBox({
+    super.key,
     required this.data,
     required this.title,
-    required this.value,
-    required this.isUp,
-    required this.isMoney,
+    required this.onChanged,
+    // required this.value,
+    // required this.isUp,
+    // required this.isMoney,
     required this.timePeriod,
-    required this.valuePostfix,
+    // required this.valuePostfix,
   });
 
   @override
@@ -33,23 +35,17 @@ class BarChartBox extends StatefulWidget {
 
 class _BarChartBoxState extends State<BarChartBox> {
   List<String> timePeriods = ['Day', 'Week', 'Month', 'Year', 'Choose Date'];
-  late String timePeriodValue = timePeriods[0];
+  late String timePeriodValue = widget.timePeriod;
   @override
   Widget build(BuildContext context) {
-    double _numberHeight = MediaQuery.of(context).size.width / 10;
-    double percentage = 12.7;
+    double numberHeight = MediaQuery.of(context).size.width / 10;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
       child: Container(
         width: double.infinity,
-        height: MediaQuery.of(context).size.height / 3 + _numberHeight,
+        height: MediaQuery.of(context).size.height / 3 + numberHeight,
         decoration: BoxDecoration(
           color: Colors.white,
-          // image: DecorationImage(
-          //   image: AssetImage('assets/images/bg_1.png'),
-          //   fit: BoxFit.cover,
-          //   alignment: Alignment.topCenter,
-          // ),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
@@ -80,56 +76,57 @@ class _BarChartBoxState extends State<BarChartBox> {
                       },
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: kBIASDarkGrayColor,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             fontFamily: 'Poppins',
                           ),
-                          icon: Icon(
+                          icon: const Icon(
                             CupertinoIcons.ellipsis,
                             color: Colors.white,
                           ),
                           value: timePeriodValue,
                           isDense: true,
                           onChanged: (value) {
-                            setState(() async {
+                            setState(() {
                               timePeriodValue = value!;
-                              if (timePeriodValue == timePeriods[4]) {
-                                DateTime? pickedDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(
-                                      2000), //DateTime.now() - not to allow to choose before today.
-                                  lastDate: DateTime(2101),
-                                  builder: (context, child) {
-                                    return Theme(
-                                      data: ThemeData.light().copyWith(
-                                        primaryColor:
-                                            kBIASBlueColor.withOpacity(0.9),
-                                        colorScheme: ColorScheme.light(
-                                            primary: kBIASBlueColor
-                                                .withOpacity(0.9)),
-                                        buttonTheme: const ButtonThemeData(
-                                            textTheme: ButtonTextTheme.primary),
-                                      ),
-                                      child: child!,
-                                    );
-                                  },
-                                );
-
-                                if (pickedDate != null) {
-                                  String formattedDate =
-                                      DateFormat('yyyy-MM-dd')
-                                          .format(pickedDate);
-
-                                  setState(() {
-                                    timePeriods[4] = formattedDate;
-                                    timePeriodValue = formattedDate;
-                                  });
-                                }
-                              }
                             });
+                            widget.onChanged(value);
+                            // if (timePeriodValue == timePeriods[4]) {
+                            //   DateTime? pickedDate = await showDatePicker(
+                            //     context: context,
+                            //     initialDate: DateTime.now(),
+                            //     firstDate: DateTime(
+                            //         2000), //DateTime.now() - not to allow to choose before today.
+                            //     lastDate: DateTime(2101),
+                            //     builder: (context, child) {
+                            //       return Theme(
+                            //         data: ThemeData.light().copyWith(
+                            //           primaryColor:
+                            //               kBIASBlueColor.withOpacity(0.9),
+                            //           colorScheme: ColorScheme.light(
+                            //               primary: kBIASBlueColor
+                            //                   .withOpacity(0.9)),
+                            //           buttonTheme: const ButtonThemeData(
+                            //               textTheme: ButtonTextTheme.primary),
+                            //         ),
+                            //         child: child!,
+                            //       );
+                            //     },
+                            //   );
+                            //
+                            //   if (pickedDate != null) {
+                            //     String formattedDate =
+                            //         DateFormat('yyyy-MM-dd')
+                            //             .format(pickedDate);
+                            //
+                            //     setState(() {
+                            //       timePeriods[4] = formattedDate;
+                            //       timePeriodValue = formattedDate;
+                            //     });
+                            //   }
+                            // }
                           },
                           items: timePeriods.map((String value) {
                             return DropdownMenuItem<String>(

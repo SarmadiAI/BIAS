@@ -25,7 +25,7 @@ class CurrentOrderBodyState extends State<CurrentOrderBody> {
           Container(
             height: 100,
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
             ),
             child: Padding(
@@ -57,8 +57,8 @@ class CurrentOrderBodyState extends State<CurrentOrderBody> {
             child: Row(
               children: [
                 SearchTextField(onChanged: (value) {}),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 5),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20, right: 5),
                   child: Icon(
                     CupertinoIcons.arrow_up_arrow_down,
                     color: kBIASDarkGrayColor,
@@ -80,28 +80,29 @@ class CurrentOrderBodyState extends State<CurrentOrderBody> {
 
 List<Widget> stocksWidget(BuildContext context) {
   List<Widget> waterRefill = [
-    SizedBox(height: 10),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+    const SizedBox(height: 10),
+    const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
       child: BIASTitle('Water Container Refillings'),
     ),
   ];
   List<Widget> waterBottles = [
-    SizedBox(height: 10),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+    const SizedBox(height: 10),
+    const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
       child: BIASTitle('Water Bottles'),
     ),
   ];
   List<Widget> other = [
-    SizedBox(height: 10),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+    const SizedBox(height: 10),
+    const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
       child: BIASTitle('Other'),
     ),
   ];
 
   List data = Provider.of<Stock>(context, listen: true).stocks;
+
   for (int i = 0; i < data.length; i++) {
     if (data[i]['section'] == 'Water Container Refillings') {
       waterRefill.add(
@@ -110,7 +111,7 @@ List<Widget> stocksWidget(BuildContext context) {
           title: data[i]['brand_name'],
           subtitle: data[i]['description'],
           initialQuantity: 0,
-          price: data[i]['price'] ?? 0,
+          price: data[i]['selling_price'] ?? '0.00',
           image: data[i]['image'],
         ),
       );
@@ -121,7 +122,7 @@ List<Widget> stocksWidget(BuildContext context) {
         title: data[i]['brand_name'],
         subtitle: data[i]['description'],
         initialQuantity: 0,
-        price: data[i]['price'] ?? 0,
+        price: data[i]['selling_price'] ?? '0.00',
         image: data[i]['image'],
       ));
       waterBottles.add(const SizedBox(height: 10));
@@ -131,7 +132,7 @@ List<Widget> stocksWidget(BuildContext context) {
         title: data[i]['brand_name'],
         subtitle: data[i]['description'],
         initialQuantity: 0,
-        price: data[i]['price'] ?? 0,
+        price: data[i]['selling_price'] ?? '0.00',
         image: data[i]['image'],
       ));
       other.add(const SizedBox(height: 10));

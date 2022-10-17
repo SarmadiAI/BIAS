@@ -24,6 +24,14 @@ class _BIASDropdownListState extends State<BIASDropdownList> {
   bool colorVisibility = false;
 
   @override
+  void initState() {
+    super.initState();
+    setState(() {
+      colorVisibility = widget.controller != null;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FocusScope(
       child: Focus(

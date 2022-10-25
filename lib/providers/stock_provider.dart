@@ -9,6 +9,9 @@ class Stock with ChangeNotifier {
   List get stocks => _stocks;
 
   void addStock(Map<String, dynamic> stockDetails) {
+    stockDetails['id'] = _stocks.last['id'] + 1;
+    if (stockDetails['reshipping_days'] == '')
+      stockDetails.remove('reshipping_days');
     http
         .post(
             Uri.parse(
@@ -55,9 +58,10 @@ class Stock with ChangeNotifier {
         if (allDetails) {
           _stocks[fakeId] = stockDetails;
         } else {
-          _stocks[fakeId]['available_quantity'] +=
-              stockDetails['added_quantity'];
+          _stocks[fakeId]['available_quantity'] =
+              stockDetails['available_quantity'];
         }
+
         notifyListeners();
       }
     });
@@ -65,8 +69,7 @@ class Stock with ChangeNotifier {
 
   void deleteStock(int id, int fakeId) {
     http.get(
-      Uri.parse(
-          'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/apis/delete_stock/$id'),
+      Uri.parse('http://127.0.0.1:8000/apis/delete_stock/$id'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8'
       },

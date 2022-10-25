@@ -7,6 +7,7 @@ class DashboardContainer extends StatelessWidget {
   final void Function()? onTap;
 
   const DashboardContainer({
+    super.key,
     this.title,
     this.image,
     this.onTap,
@@ -22,7 +23,7 @@ class DashboardContainer extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
-            image: image ?? AssetImage('assets/images/light_gray.png'),
+            image: image ?? const AssetImage('assets/images/light_gray.png'),
             fit: BoxFit.cover,
             alignment: Alignment.topCenter,
           ),

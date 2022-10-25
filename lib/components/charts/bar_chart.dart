@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../screens/charts_test.dart';
 import 'bar_chart_box.dart';
 import 'chart_data.dart';
-import 'line_chart_box.dart';
 
 class BarChart extends StatelessWidget {
   const BarChart({
+    super.key,
     required this.widget,
   });
 
@@ -28,7 +27,7 @@ class BarChart extends StatelessWidget {
           xValueMapper: (ChartData data, _) => data.x,
           yValueMapper: (ChartData data, _) => data.y[0],
           name: widget.title,
-          dataLabelSettings: DataLabelSettings(isVisible: true),
+          dataLabelSettings: const DataLabelSettings(isVisible: true),
         ),
       ],
     );

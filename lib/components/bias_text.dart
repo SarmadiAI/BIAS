@@ -10,6 +10,7 @@ class BIASText extends StatelessWidget {
 
   const BIASText(
     this.text, {
+    super.key,
     this.color,
     this.fontSize,
     this.fontWeight,

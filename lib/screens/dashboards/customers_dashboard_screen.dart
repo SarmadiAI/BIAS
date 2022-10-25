@@ -30,9 +30,7 @@ class _CustomersDashboardScreen extends State<CustomersDashboardScreen> {
 
   void getSalesPerTimePeriodPoints() async {
     http
-        .post(
-            Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/customers/'),
+        .post(Uri.parse('http://127.0.0.1:8000/insights/customers/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -70,7 +68,7 @@ class _CustomersDashboardScreen extends State<CustomersDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_item_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_item_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -110,7 +108,7 @@ class _CustomersDashboardScreen extends State<CustomersDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_item_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_item_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -149,9 +147,7 @@ class _CustomersDashboardScreen extends State<CustomersDashboardScreen> {
 
   void getSalesPerTimePeriodCardPoints() async {
     http
-        .post(
-            Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/customers/'),
+        .post(Uri.parse('http://127.0.0.1:8000/insights/customers/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -180,9 +176,7 @@ class _CustomersDashboardScreen extends State<CustomersDashboardScreen> {
 
   void getAvgSalesPeriodCardPoints() async {
     http
-        .post(
-            Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/customers/'),
+        .post(Uri.parse('http://127.0.0.1:8000/insights/customers/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },

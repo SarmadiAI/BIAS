@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
@@ -9,7 +10,7 @@ import 'input_border.dart';
 
 class BIASImageField extends StatefulWidget {
   final String labelText;
-  XFile? image;
+  String? image;
   final Function getImage;
   final Function deleteImage;
 
@@ -52,19 +53,19 @@ class _BIASImageFieldState extends State<BIASImageField> {
       child: Container(
         width: MediaQuery.of(context).size.width - 50,
         height: MediaQuery.of(context).size.width - 50,
-        decoration: widget.image == null
+        decoration: widget.image == null || widget.image == ''
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(10), color: Colors.white)
             : BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  image: FileImage(File(widget.image!.path)),
+                  image: Image.memory(base64Decode(widget.image!)).image,
                   fit: BoxFit.cover,
                   alignment: Alignment.topCenter,
                 ),
               ),
         child: Column(
-          mainAxisAlignment: widget.image == null
+          mainAxisAlignment: widget.image == null || widget.image == ''
               ? MainAxisAlignment.spaceEvenly
               : MainAxisAlignment.spaceBetween,
           children: [
@@ -77,7 +78,7 @@ class _BIASImageFieldState extends State<BIASImageField> {
                   colorVisibility = true;
                 });
               },
-              child: widget.image == null
+              child: widget.image == null || widget.image == ''
                   ? SizedBox(
                       width: MediaQuery.of(context).size.width - 50,
                       height: MediaQuery.of(context).size.width / 2 - 50,
@@ -107,7 +108,7 @@ class _BIASImageFieldState extends State<BIASImageField> {
                     ),
             ),
             Visibility(
-              visible: widget.image == null,
+              visible: widget.image == null || widget.image == '',
               child: Divider(
                 thickness: 1,
                 indent: 30,
@@ -124,7 +125,7 @@ class _BIASImageFieldState extends State<BIASImageField> {
                   colorVisibility = true;
                 });
               },
-              child: widget.image == null
+              child: widget.image == null || widget.image == ''
                   ? SizedBox(
                       width: MediaQuery.of(context).size.width - 50,
                       height: MediaQuery.of(context).size.width / 2 - 50,

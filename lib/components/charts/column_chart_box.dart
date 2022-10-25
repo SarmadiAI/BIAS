@@ -18,6 +18,7 @@ class ColumnChartBox extends StatefulWidget {
   final String valuePostfix;
 
   const ColumnChartBox({
+    super.key,
     required this.data,
     required this.title,
     required this.value,
@@ -32,17 +33,17 @@ class ColumnChartBox extends StatefulWidget {
 }
 
 class _ColumnChartBoxState extends State<ColumnChartBox> {
-  List<String> timePeriods = ['Day', 'Week', 'Month', 'Year', 'Choose Date'];
+  List<String> timePeriods = ['Day', 'Week', 'Month', 'Year'];
   late String timePeriodValue = timePeriods[0];
   @override
   Widget build(BuildContext context) {
-    double _numberHeight = MediaQuery.of(context).size.width / 10;
+    double numberHeight = MediaQuery.of(context).size.width / 10;
     double percentage = 12.7;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
       child: Container(
         width: double.infinity,
-        height: MediaQuery.of(context).size.height / 3 + _numberHeight,
+        height: MediaQuery.of(context).size.height / 3 + numberHeight,
         decoration: BoxDecoration(
           color: Colors.white,
           // image: DecorationImage(
@@ -80,13 +81,13 @@ class _ColumnChartBoxState extends State<ColumnChartBox> {
                       },
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: kBIASDarkGrayColor,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             fontFamily: 'Poppins',
                           ),
-                          icon: Icon(
+                          icon: const Icon(
                             CupertinoIcons.ellipsis,
                             color: Colors.white,
                           ),
@@ -169,7 +170,7 @@ class _ColumnChartBoxState extends State<ColumnChartBox> {
                             ),
                           ],
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         currentState(isUp: widget.isUp, percentage: percentage),
                       ],
                     ),

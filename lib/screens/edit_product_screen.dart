@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:bias/components/bias_date_field.dart';
 import 'package:bias/components/bias_heading.dart';
@@ -43,7 +44,7 @@ class EditProductScreenState extends State<EditProductScreen> {
   TextEditingController sellingPrice = TextEditingController(text: null);
   TextEditingController expirationDate = TextEditingController(text: null);
   TextEditingController reshippingDays = TextEditingController(text: null);
-  XFile? image;
+  String? image;
 
   bool editController = true;
 
@@ -52,7 +53,9 @@ class EditProductScreenState extends State<EditProductScreen> {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
     if (editController) {
       section = data[arguments['itemId']]['section'];
-      expirationDate.text = '${data[arguments['itemId']]['expiration_date']}';
+      expirationDate.text =
+          '${data[arguments['itemId']]['expiration_date'] ?? ''}';
+      image = data[arguments['itemId']]['image'];
       editController = false;
     }
 
@@ -184,13 +187,15 @@ class EditProductScreenState extends State<EditProductScreen> {
                         isIntegerNumber: true,
                         controller: reshippingDays,
                         innerText:
-                            '${data[arguments['itemId']]['reshipping_days']}',
+                            '${data[arguments['itemId']]['reshipping_days'] ?? ''}',
                       ),
                       const SizedBox(height: 15),
                       BIASImageField(
                         labelText: 'Image',
                         image: image,
-                        getImage: (pickedImage) {
+                        getImage: (pickedImage) async {
+                          pickedImage =
+                              base64.encode(await pickedImage.readAsBytes());
                           setState(() {
                             image = pickedImage;
                           });
@@ -226,31 +231,38 @@ class EditProductScreenState extends State<EditProductScreen> {
                     left: 20, right: 20, top: 10, bottom: 20),
                 child: InkWell(
                   onTap: () async {
-                    Provider.of<Stock>(context, listen: false).updateStock({
-                      'id': data[arguments['itemId']]['id'],
-                      'brand_name':
-                          brandName.text == '' ? null : brandName.text,
-                      'description':
-                          description.text == '' ? null : description.text,
-                      'section': section,
-                      'available_quantity': fullQuantity.text == ''
-                          ? null
-                          : int.parse(fullQuantity.text),
-                      'supplier_price':
-                          supplierPrice.text == '' ? null : supplierPrice.text,
-                      'selling_price':
-                          sellingPrice.text == '' ? null : sellingPrice.text,
-                      'expiration_date': expirationDate.text == ''
-                          ? null
-                          : expirationDate.text,
-                      'reshipping_days': reshippingDays.text == ''
-                          ? null
-                          : reshippingDays.text,
-                      'image': image == null
-                          ? null
-                          : base64.encode(await image!.readAsBytes()),
-                    }, true, arguments['itemId']);
-                    Navigator.pushNamed(context, HomeScreen.id);
+                    if (brandName.text != '' &&
+                        description.text != '' &&
+                        section != null &&
+                        fullQuantity.text != '') {
+                      Provider.of<Stock>(context, listen: false).updateStock({
+                        'id': data[arguments['itemId']]['id'],
+                        'brand_name':
+                            brandName.text == '' ? null : brandName.text,
+                        'description':
+                            description.text == '' ? null : description.text,
+                        'section': section,
+                        'available_quantity': fullQuantity.text == ''
+                            ? null
+                            : int.parse(fullQuantity.text),
+                        'supplier_price': supplierPrice.text == ''
+                            ? null
+                            : supplierPrice.text,
+                        'selling_price':
+                            sellingPrice.text == '' ? null : sellingPrice.text,
+                        'expiration_date': expirationDate.text == ''
+                            ? null
+                            : expirationDate.text,
+                        'reshipping_days': reshippingDays.text == ''
+                            ? null
+                            : reshippingDays.text,
+                        'image': image == null ? null : image,
+                      }, true, arguments['itemId']);
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => HomeScreen(
+                                currentIndex: 0,
+                              )));
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -337,8 +349,10 @@ class EditProductScreenState extends State<EditProductScreen> {
                           onTap: () {
                             Provider.of<Stock>(context, listen: false)
                                 .deleteStock(id, fakeId);
-
-                            Navigator.pushNamed(context, HomeScreen.id);
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => HomeScreen(
+                                      currentIndex: 0,
+                                    )));
                           },
                           child: Container(
                             height: 40,

@@ -77,16 +77,16 @@ class _FinancialDashboardsScreenState extends State<FinancialDashboardsScreen> {
                           const BIASHeading('Financial Dashboard'),
                           Row(
                             children: [
-                              InkWell(
-                                onTap: () {
-                                  showFilterDialog();
-                                },
-                                child: const Icon(
-                                  Icons.filter_list,
-                                  color: kBIASDarkGrayColor,
-                                  size: 28,
-                                ),
-                              ),
+                              // InkWell(
+                              //   onTap: () {
+                              //     showFilterDialog();
+                              //   },
+                              //   child: const Icon(
+                              //     Icons.filter_list,
+                              //     color: kBIASDarkGrayColor,
+                              //     size: 28,
+                              //   ),
+                              // ),
                               const SizedBox(width: 10),
                               InkWell(
                                 onTap: () {
@@ -181,7 +181,7 @@ class _ProfitsDashboardScreenState extends State<ProfitsDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_statistics_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_statistics_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -221,7 +221,7 @@ class _ProfitsDashboardScreenState extends State<ProfitsDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_item_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_item_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -261,7 +261,7 @@ class _ProfitsDashboardScreenState extends State<ProfitsDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_item_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_item_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -301,7 +301,7 @@ class _ProfitsDashboardScreenState extends State<ProfitsDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_statistics_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_statistics_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -335,7 +335,7 @@ class _ProfitsDashboardScreenState extends State<ProfitsDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_statistics_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_statistics_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -513,7 +513,7 @@ class _RevenuesDashboardScreenState extends State<RevenuesDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_statistics_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_statistics_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -554,7 +554,7 @@ class _RevenuesDashboardScreenState extends State<RevenuesDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_item_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_item_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -594,7 +594,7 @@ class _RevenuesDashboardScreenState extends State<RevenuesDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_item_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_item_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -634,7 +634,7 @@ class _RevenuesDashboardScreenState extends State<RevenuesDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_statistics_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_statistics_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -668,7 +668,7 @@ class _RevenuesDashboardScreenState extends State<RevenuesDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_statistics_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_statistics_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },

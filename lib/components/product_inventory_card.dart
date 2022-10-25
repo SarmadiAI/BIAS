@@ -112,7 +112,7 @@ class _ProductInventoryCardState extends State<ProductInventoryCard> {
                       borderRadius: BorderRadius.circular(6),
                       color: CupertinoColors.extraLightBackgroundGray,
                       image: DecorationImage(
-                        image: widget.image != null
+                        image: widget.image != null && widget.image != ''
                             ? Image.memory(base64Decode(widget.image!)).image
                             : const AssetImage(
                                 'assets/images/water_container.png'),

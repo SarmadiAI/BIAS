@@ -91,6 +91,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                         subtitle: receipt[item][3],
                         initialQuantity: receipt[item][0],
                         price: receipt[item][1],
+                        showTotalPrice: true,
                         image: receipt[item][4],
                       ),
                       const SizedBox(height: 10),
@@ -109,7 +110,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          BIASSubtitle('Basket Total'),
+                          const BIASSubtitle('Basket Total'),
                           BIASSubtitle('${subTotal()} JOD'),
                         ],
                       ),
@@ -117,8 +118,8 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          BIASSubtitle('Basket Tax Total'),
-                          BIASSubtitle('0.0 JOD'),
+                          const BIASSubtitle('Basket Tax Total'),
+                          const BIASSubtitle('0.0 JOD'),
                         ],
                       ),
                       const SizedBox(height: 5),
@@ -183,13 +184,15 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Provider.of<Receipt>(context, listen: false)
-                              .createReceipt()
-                              .then((value) {
-                            Provider.of<Stock>(context, listen: false)
-                                .getStocks();
-                            Navigator.pop(context);
-                          });
+                          if (receipt.isNotEmpty) {
+                            Provider.of<Receipt>(context, listen: false)
+                                .createReceipt()
+                                .then((value) {
+                              Provider.of<Stock>(context, listen: false)
+                                  .getStocks();
+                              Navigator.pop(context);
+                            });
+                          }
                         },
                         child: Container(
                           decoration: BoxDecoration(

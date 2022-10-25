@@ -32,7 +32,7 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_statistics_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_statistics_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -73,7 +73,7 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_item_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_item_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -88,8 +88,8 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
         worstItemBySalesPoints = [];
         Map data = jsonDecode(value.body);
         for (String key in data.keys) {
-          worstItemBySalesPoints
-              .add(ChartData(key, [data[key].toDouble()], key));
+          worstItemBySalesPoints.add(ChartData(
+              key, [data[key] == null ? 0.00 : data[key].toDouble()], key));
         }
         setState(() {
           if (salesPerTimeTimePeriodValue == 'Week' ||
@@ -113,7 +113,7 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_item_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_item_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -128,8 +128,8 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
         itemCONTRIBInSalesPoints = [];
         Map data = jsonDecode(value.body);
         for (String key in data.keys) {
-          itemCONTRIBInSalesPoints
-              .add(ChartData(key, [data[key].toDouble()], key));
+          itemCONTRIBInSalesPoints.add(ChartData(
+              key, [data[key] == null ? 0.00 : data[key].toDouble()], key));
         }
         setState(() {
           if (salesPerTimeTimePeriodValue == 'Week' ||
@@ -154,7 +154,7 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_statistics_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_statistics_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -188,7 +188,7 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
     http
         .post(
             Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/insights/statistics_base_on_statistics_category/'),
+                'http://127.0.0.1:8000/insights/statistics_base_on_statistics_category/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -253,6 +253,7 @@ class SalesDashboardScreenState extends State<SalesDashboardScreen> {
       getItemCONTRIBInSalesPoints();
       getSalesPerTimePeriodCardPoints();
       getAvgSalesPeriodCardPoints();
+      getData = false;
     }
 
     return Scaffold(

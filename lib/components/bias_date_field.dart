@@ -49,7 +49,7 @@ class _BIASDateFieldState extends State<BIASDateField> {
           });
         },
         child: TextField(
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,
             fontFamily: 'Poppins',

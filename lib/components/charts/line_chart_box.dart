@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../constants.dart';
 import '../bias_text.dart';
-import '../current_state.dart';
 import 'chart_data.dart';
 import 'line_chart.dart';
 
@@ -19,6 +17,7 @@ class LineChartBox extends StatefulWidget {
   // final String valuePostfix;
 
   const LineChartBox({
+    super.key,
     required this.data,
     required this.title,
     required this.onChanged,
@@ -34,17 +33,17 @@ class LineChartBox extends StatefulWidget {
 }
 
 class _LineChartBoxState extends State<LineChartBox> {
-  List<String> timePeriods = ['Day', 'Week', 'Month', 'Year', 'Choose Date'];
+  List<String> timePeriods = ['Day', 'Week', 'Month', 'Year'];
   late String timePeriodValue = widget.timePeriod;
   @override
   Widget build(BuildContext context) {
-    double _numberHeight = MediaQuery.of(context).size.width / 10;
+    double numberHeight = MediaQuery.of(context).size.width / 10;
     // double percentage = 12.7;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
       child: Container(
         width: double.infinity,
-        height: MediaQuery.of(context).size.height / 3 + _numberHeight,
+        height: MediaQuery.of(context).size.height / 3 + numberHeight,
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -77,13 +76,13 @@ class _LineChartBoxState extends State<LineChartBox> {
                       },
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: kBIASDarkGrayColor,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             fontFamily: 'Poppins',
                           ),
-                          icon: Icon(
+                          icon: const Icon(
                             CupertinoIcons.ellipsis,
                             color: Colors.white,
                           ),
@@ -151,7 +150,7 @@ class _LineChartBoxState extends State<LineChartBox> {
                       children: [
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
+                          children: const [
                             // BIASText(
                             //   '${widget.value}',
                             //   fontSize: MediaQuery.of(context).size.width / 22,
@@ -167,7 +166,7 @@ class _LineChartBoxState extends State<LineChartBox> {
                             // ),
                           ],
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         // currentState(isUp: widget.isUp, percentage: percentage),
                       ],
                     ),

@@ -5,7 +5,7 @@ import 'bias_text.dart';
 class BIASTitle extends StatelessWidget {
   final String title;
 
-  const BIASTitle(this.title);
+  const BIASTitle(this.title, {super.key});
 
   @override
   Widget build(BuildContext context) {

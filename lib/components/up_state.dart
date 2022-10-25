@@ -15,7 +15,7 @@ class UpState extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Icon(
+        const Icon(
           Icons.arrow_upward_outlined,
           color: kBIASGreenColor,
           size: 15,

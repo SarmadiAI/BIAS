@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 import 'package:bias/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +10,7 @@ class BIASStaticImageField extends StatefulWidget {
   final String? image;
 
   const BIASStaticImageField({
+    super.key,
     required this.labelText,
     this.image,
   });
@@ -36,7 +35,7 @@ class _BIASStaticImageFieldState extends State<BIASStaticImageField> {
         contentPadding:
             const EdgeInsets.symmetric(vertical: 22, horizontal: 15),
         prefixIconColor: kBIASRedColor,
-        labelText: this.widget.labelText,
+        labelText: widget.labelText,
         labelStyle: TextStyle(
           color: colorVisibility
               ? kBIASBlueColor
@@ -52,7 +51,7 @@ class _BIASStaticImageFieldState extends State<BIASStaticImageField> {
       child: Container(
         width: MediaQuery.of(context).size.width - 50,
         height: MediaQuery.of(context).size.width - 50,
-        decoration: widget.image == null
+        decoration: widget.image == null || widget.image == ''
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(10), color: Colors.white)
             : BoxDecoration(
@@ -63,7 +62,7 @@ class _BIASStaticImageFieldState extends State<BIASStaticImageField> {
                   alignment: Alignment.topCenter,
                 ),
               ),
-        child: widget.image == null
+        child: widget.image == null || widget.image == ''
             ? Icon(
                 CupertinoIcons.photo,
                 color: kBIASLightGrayColor.withOpacity(0.7),

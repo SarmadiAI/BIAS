@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../screens/charts_test.dart';
 import 'chart_data.dart';
 import 'doughnut_chart_box.dart';
 
 class DoughnutChart extends StatelessWidget {
   const DoughnutChart({
+    super.key,
     required this.widget,
   });
 
@@ -23,7 +23,7 @@ class DoughnutChart extends StatelessWidget {
           yValueMapper: (ChartData data, _) => data.y[0],
           dataLabelMapper: (ChartData data, _) => data.text,
           name: widget.title,
-          dataLabelSettings: DataLabelSettings(isVisible: true),
+          dataLabelSettings: const DataLabelSettings(isVisible: true),
         ),
       ],
     );

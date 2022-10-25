@@ -28,7 +28,7 @@ class _InsightsBodyState extends State<InsightsBody> {
           Container(
             height: 100,
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
             ),
             child: Padding(
@@ -55,7 +55,7 @@ class _InsightsBodyState extends State<InsightsBody> {
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           // Padding(
           //   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           //   child: BIASTitle('Featured Dashboards'),
@@ -81,44 +81,47 @@ class _InsightsBodyState extends State<InsightsBody> {
           //   ),
           // ),
           // SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
             child: BIASTitle('Dashboards'),
           ),
           Expanded(
             child: ListView(
               children: [
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: DashboardContainer(
                     onTap: () =>
                         Navigator.pushNamed(context, SalesDashboardScreen.id),
                     title: 'Sales\nDashboard',
-                    image: AssetImage('assets/images/patterns/pattern_3.png'),
+                    image: const AssetImage(
+                        'assets/images/patterns/pattern_3.png'),
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: DashboardContainer(
                     onTap: () => Navigator.pushNamed(
                         context, FinancialDashboardsScreen.id),
                     title: 'Financial\nDashboard',
-                    image: AssetImage('assets/images/patterns/pattern_4.png'),
+                    image: const AssetImage(
+                        'assets/images/patterns/pattern_4.png'),
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: DashboardContainer(
                     onTap: () => Navigator.pushNamed(
                         context, CustomersDashboardScreen.id),
                     title: 'Customers\nDashboard',
-                    image: AssetImage('assets/images/patterns/pattern_5.png'),
+                    image: const AssetImage(
+                        'assets/images/patterns/pattern_5.png'),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           ),

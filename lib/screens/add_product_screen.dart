@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '../providers/stock_provider.dart';
 
 class AddProductScreen extends StatefulWidget {
@@ -32,7 +33,7 @@ class AddProductScreenState extends State<AddProductScreen> {
   TextEditingController sellingPrice = TextEditingController(text: null);
   TextEditingController expirationDate = TextEditingController(text: null);
   TextEditingController reshippingDays = TextEditingController(text: null);
-  XFile? image;
+  String? image;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +84,7 @@ class AddProductScreenState extends State<AddProductScreen> {
                     children: [
                       const SizedBox(height: 10),
                       const BIASTitle('Required Fields'),
-                      BIASSubtitle(
+                      const BIASSubtitle(
                           'Essensial fields you need to input to get basic insights'),
                       const SizedBox(height: 20),
                       BIASTextField(
@@ -118,7 +119,8 @@ class AddProductScreenState extends State<AddProductScreen> {
                       ),
                       const SizedBox(height: 30),
                       const BIASTitle('Optional Fields'),
-                      BIASSubtitle('Gain more deeper insights and predictions'),
+                      const BIASSubtitle(
+                          'Gain more deeper insights and predictions'),
                       const SizedBox(height: 20),
                       BIASTextField(
                         labelText: 'Supplier Price (Cost)',
@@ -146,7 +148,9 @@ class AddProductScreenState extends State<AddProductScreen> {
                       BIASImageField(
                         labelText: 'Image',
                         image: image,
-                        getImage: (pickedImage) {
+                        getImage: (pickedImage) async {
+                          pickedImage =
+                              base64.encode(await pickedImage!.readAsBytes());
                           setState(() {
                             image = pickedImage;
                           });
@@ -164,29 +168,28 @@ class AddProductScreenState extends State<AddProductScreen> {
               ]),
             ),
             InkWell(
-              onTap: () async {
-                Provider.of<Stock>(context, listen: false).addStock({
-                  'brand_name': brandName.text == '' ? null : brandName.text,
-                  'description':
-                      description.text == '' ? null : description.text,
-                  'section': section,
-                  'sold_quantity': 0,
-                  'available_quantity': fullQuantity.text == ''
-                      ? null
-                      : int.parse(fullQuantity.text),
-                  'supplier_price':
-                      supplierPrice.text == '' ? null : supplierPrice.text,
-                  'selling_price':
-                      sellingPrice.text == '' ? null : sellingPrice.text,
-                  'expiration_date':
-                      expirationDate.text == '' ? null : expirationDate.text,
-                  'reshipping_days':
-                      reshippingDays.text == '' ? null : reshippingDays.text,
-                  'image': image == null
-                      ? null
-                      : base64.encode(await image!.readAsBytes()),
-                });
-                Navigator.pop(context);
+              onTap: () {
+                if (brandName.text != '' &&
+                    description.text != '' &&
+                    section != null &&
+                    fullQuantity.text != '') {
+                  Provider.of<Stock>(context, listen: false).addStock({
+                    'brand_name': brandName.text,
+                    'description': description.text,
+                    'section': section,
+                    'sold_quantity': 0,
+                    'available_quantity': int.parse(fullQuantity.text),
+                    'supplier_price':
+                        supplierPrice.text == '' ? null : supplierPrice.text,
+                    'selling_price':
+                        sellingPrice.text == '' ? null : sellingPrice.text,
+                    'expiration_date':
+                        expirationDate.text == '' ? null : expirationDate.text,
+                    'reshipping_days': reshippingDays.text,
+                    'image': image == null ? null : image,
+                  });
+                  Navigator.pop(context);
+                }
               },
               child: Container(
                 height: 80,

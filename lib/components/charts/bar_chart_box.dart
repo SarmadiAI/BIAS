@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../constants.dart';
 import '../bias_text.dart';
@@ -34,7 +33,7 @@ class BarChartBox extends StatefulWidget {
 }
 
 class _BarChartBoxState extends State<BarChartBox> {
-  List<String> timePeriods = ['Day', 'Week', 'Month', 'Year', 'Choose Date'];
+  List<String> timePeriods = ['Day', 'Week', 'Month', 'Year'];
   late String timePeriodValue = widget.timePeriod;
   @override
   Widget build(BuildContext context) {

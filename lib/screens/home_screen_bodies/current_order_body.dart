@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../components/product_shopping_card.dart';
 import '../../components/search_text_field.dart';
 import '../../constants.dart';
+import '../../providers/receipt_provider.dart';
 import '../../providers/stock_provider.dart';
 
 class CurrentOrderBody extends StatefulWidget {
@@ -102,16 +103,20 @@ List<Widget> stocksWidget(BuildContext context) {
   ];
 
   List data = Provider.of<Stock>(context, listen: true).stocks;
-
+  Map receipt = Provider.of<Receipt>(context, listen: true).receipt;
   for (int i = 0; i < data.length; i++) {
     if (data[i]['section'] == 'Water Container Refillings') {
       waterRefill.add(
         ProductShoppingCard(
           id: data[i]['id'].toString(),
-          title: data[i]['brand_name'],
+          // title: data[i]['brand_name'],
+          title: (receipt[data[i]['id']] == null).toString(),
           subtitle: data[i]['description'],
-          initialQuantity: 0,
+          initialQuantity: receipt[data[i]['id'].toString()] == null
+              ? 0
+              : receipt[data[i]['id'].toString()][0],
           price: data[i]['selling_price'] ?? '0.00',
+          showTotalPrice: false,
           image: data[i]['image'],
         ),
       );
@@ -121,8 +126,11 @@ List<Widget> stocksWidget(BuildContext context) {
         id: data[i]['id'].toString(),
         title: data[i]['brand_name'],
         subtitle: data[i]['description'],
-        initialQuantity: 0,
+        initialQuantity: receipt[data[i]['id'].toString()] == null
+            ? 0
+            : receipt[data[i]['id'].toString()][0],
         price: data[i]['selling_price'] ?? '0.00',
+        showTotalPrice: false,
         image: data[i]['image'],
       ));
       waterBottles.add(const SizedBox(height: 10));
@@ -131,8 +139,11 @@ List<Widget> stocksWidget(BuildContext context) {
         id: data[i]['id'].toString(),
         title: data[i]['brand_name'],
         subtitle: data[i]['description'],
-        initialQuantity: 0,
+        initialQuantity: receipt[data[i]['id'].toString()] == null
+            ? 0
+            : receipt[data[i]['id'].toString()][0],
         price: data[i]['selling_price'] ?? '0.00',
+        showTotalPrice: false,
         image: data[i]['image'],
       ));
       other.add(const SizedBox(height: 10));

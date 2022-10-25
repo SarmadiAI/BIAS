@@ -45,21 +45,23 @@ class BIAS extends StatelessWidget {
     return MaterialApp(
       title: 'BIAS',
       routes: {
-        AddProductScreen.id: (context) => AddProductScreen(),
+        AddProductScreen.id: (context) => const AddProductScreen(),
 
-        CheckoutScreen.id: (context) => CheckoutScreen(),
+        CheckoutScreen.id: (context) => const CheckoutScreen(),
         // CostsDashboardScreen.id: (context) => CostsDashboardScreen(),
-        CustomersDashboardScreen.id: (context) => CustomersDashboardScreen(),
-        ProfitsDashboardScreen.id: (context) => ProfitsDashboardScreen(),
+        CustomersDashboardScreen.id: (context) =>
+            const CustomersDashboardScreen(),
+        ProfitsDashboardScreen.id: (context) => const ProfitsDashboardScreen(),
         // RevenuesDashboardScreen.id: (context) => RevenuesDashboardScreen(),
-        FinancialDashboardsScreen.id: (context) => FinancialDashboardsScreen(),
-        // ChartsTest.id: (context) => ChartsTest(),
-        EditProductScreen.id: (context) => EditProductScreen(),
-        HomeScreen.id: (context) => HomeScreen(),
-        ProductInfoScreen.id: (context) => ProductInfoScreen(),
-        SalesDashboardScreen.id: (context) => SalesDashboardScreen(),
+        FinancialDashboardsScreen.id: (context) =>
+            const FinancialDashboardsScreen(),
+        EditProductScreen.id: (context) => const EditProductScreen(),
+        ProductInfoScreen.id: (context) => const ProductInfoScreen(),
+        SalesDashboardScreen.id: (context) => const SalesDashboardScreen(),
       },
-      initialRoute: HomeScreen.id,
+      home: HomeScreen(
+        currentIndex: 1,
+      ),
     );
   }
 }

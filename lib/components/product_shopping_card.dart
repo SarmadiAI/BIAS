@@ -13,6 +13,7 @@ class ProductShoppingCard extends StatefulWidget {
   final String title;
   final String? subtitle;
   final String? price;
+  final bool showTotalPrice;
   int initialQuantity;
   final String? image;
 
@@ -21,6 +22,7 @@ class ProductShoppingCard extends StatefulWidget {
     required this.id,
     required this.title,
     required this.initialQuantity,
+    required this.showTotalPrice,
     this.subtitle,
     this.price,
     this.image,
@@ -44,6 +46,9 @@ class _ProductShoppingCardState extends State<ProductShoppingCard> {
 
   @override
   Widget build(BuildContext context) {
+    if (!widget.showTotalPrice) {
+      _totalPrice = widget.price;
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Container(
@@ -173,7 +178,7 @@ class _ProductShoppingCardState extends State<ProductShoppingCard> {
                     borderRadius: BorderRadius.circular(6),
                     color: CupertinoColors.extraLightBackgroundGray,
                     image: DecorationImage(
-                      image: widget.image != null
+                      image: widget.image != null && widget.image != ''
                           ? Image.memory(base64Decode(widget.image!)).image
                           : const AssetImage(
                               'assets/images/water_container.png'),

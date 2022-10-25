@@ -18,14 +18,13 @@ class Receipt with ChangeNotifier {
             description,
             image,
           ];
+    print(_receipt);
     notifyListeners();
   }
 
   Future<bool> createReceipt() async {
     await http
-        .post(
-            Uri.parse(
-                'http://bias-env.eba-hcsnfmdq.us-east-1.elasticbeanstalk.com/apis/create_receipt/'),
+        .post(Uri.parse('http://127.0.0.1:8000/apis/create_receipt/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8'
             },

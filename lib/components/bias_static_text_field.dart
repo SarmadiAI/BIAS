@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:bias/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'input_border.dart';
 
@@ -12,6 +8,7 @@ class BIASStaticTextField extends StatefulWidget {
   final String? innerText;
 
   const BIASStaticTextField({
+    super.key,
     required this.labelText,
     this.innerText,
   });
@@ -57,7 +54,7 @@ class _BIASStaticTextFieldState extends State<BIASStaticTextField> {
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 22, horizontal: 15),
-            labelText: this.widget.labelText,
+            labelText: widget.labelText,
             labelStyle: TextStyle(
               color: colorVisibility
                   ? kBIASBlueColor

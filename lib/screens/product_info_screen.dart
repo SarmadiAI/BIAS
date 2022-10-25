@@ -10,6 +10,7 @@ import '../components/bias_static_text_field.dart';
 import '../components/bias_text.dart';
 import '../components/bias_text_field.dart';
 import '../providers/stock_provider.dart';
+import 'home_screen.dart';
 
 class ProductInfoScreen extends StatefulWidget {
   final int? itemId;
@@ -21,17 +22,10 @@ class ProductInfoScreen extends StatefulWidget {
 }
 
 class ProductInfoScreenState extends State<ProductInfoScreen> {
-  List data = [];
-
-  @override
-  void initState() {
-    data = Provider.of<Stock>(context, listen: false).stocks;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    List data = Provider.of<Stock>(context, listen: true).stocks;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -147,23 +141,31 @@ class ProductInfoScreenState extends State<ProductInfoScreen> {
                                               controller: controller,
                                               isIntegerNumber: true,
                                             ),
-                                            SizedBox(height: 10),
+                                            const SizedBox(height: 10),
                                             InkWell(
                                               onTap: () {
-                                                print(controller.text);
                                                 Provider.of<Stock>(context,
                                                         listen: false)
                                                     .updateStock({
                                                   'id':
                                                       data[arguments['itemId']]
                                                           ['id'],
-                                                  'added_quantity':
-                                                      controller.text == ''
-                                                          ? 0
-                                                          : int.parse(
+                                                  'available_quantity': controller
+                                                              .text ==
+                                                          ''
+                                                      ? 0
+                                                      : data[arguments[
+                                                                  'itemId']][
+                                                              'available_quantity'] +
+                                                          int.parse(
                                                               controller.text)
                                                 }, false, arguments['itemId']);
-                                                Navigator.pop(context);
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            HomeScreen(
+                                                              currentIndex: 0,
+                                                            )));
                                               },
                                               child: Container(
                                                 height: 45,
@@ -235,7 +237,7 @@ class ProductInfoScreenState extends State<ProductInfoScreen> {
                       BIASStaticTextField(
                         labelText: 'Re-shipping Days',
                         innerText:
-                            '${data[arguments['itemId']]['reshipping_days']}',
+                            '${data[arguments['itemId']]['reshipping_days'] ?? ''}',
                       ),
                       const SizedBox(height: 15),
                       BIASStaticImageField(

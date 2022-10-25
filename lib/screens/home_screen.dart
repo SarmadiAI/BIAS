@@ -4,15 +4,14 @@ import 'package:bias/screens/checkout_screen.dart';
 import 'package:bias/screens/home_screen_bodies/current_order_body.dart';
 import 'package:bias/screens/home_screen_bodies/insights_body.dart';
 import 'package:bias/screens/home_screen_bodies/inventory_body.dart';
-import 'package:dot_navigation_bar/dot_navigation_bar.dart';
-import 'package:bias/components/bias_text.dart';
+
 import 'package:bias/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  int currentIndex;
+  HomeScreen({required this.currentIndex});
   static const String id = "home_screen";
 
   @override
@@ -20,20 +19,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 1;
-  bool _canCheckout = false;
-
   List<Widget> _bodies = [
-    InventoryBody(),
-    CurrentOrderBody(),
-    InsightsBody(),
+    const InventoryBody(),
+    const CurrentOrderBody(),
+    const InsightsBody(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: Visibility(
-        visible: _currentIndex == 0,
+        visible: widget.currentIndex == 0,
         child: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(context, AddProductScreen.id);
@@ -41,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Icon(CupertinoIcons.plus),
+          child: const Icon(CupertinoIcons.plus),
           backgroundColor: kBIASBlueColor.withOpacity(0.9),
         ),
       ),
@@ -64,19 +60,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   notchMargin: 0,
                   clipBehavior: Clip.antiAlias,
                   child: BottomNavigationBar(
-                    currentIndex: _currentIndex,
+                    currentIndex: widget.currentIndex,
                     backgroundColor: Colors.white,
                     selectedItemColor: Colors.black,
                     onTap: (index) {
                       setState(() {
-                        if (_currentIndex == 1 && index == 1) {
+                        if (widget.currentIndex == 1 && index == 1) {
                           Navigator.pushNamed(context, CheckoutScreen.id);
                         }
-                        _currentIndex = index;
+                        widget.currentIndex = index;
                       });
                     },
                     items: [
-                      BottomNavigationBarItem(
+                      const BottomNavigationBarItem(
                         icon: Icon(
                           CupertinoIcons.cube_box,
                           size: 24,
@@ -88,24 +84,24 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 60,
                           width: 100,
                           decoration: BoxDecoration(
-                            color: _currentIndex == 1
-                                ? Color(0xFF0043FF)
+                            color: widget.currentIndex == 1
+                                ? const Color(0xFF0043FF)
                                 : Colors.grey.shade300,
                             borderRadius: BorderRadius.circular(24),
                           ),
                           child: Icon(
-                            _currentIndex == 1
+                            widget.currentIndex == 1
                                 ? CupertinoIcons.checkmark_alt_circle
                                 : CupertinoIcons.shopping_cart,
                             size: 28,
-                            color: _currentIndex == 1
+                            color: widget.currentIndex == 1
                                 ? Colors.white
                                 : kBIASDarkGrayColor,
                           ),
                         ),
                         label: '',
                       ),
-                      BottomNavigationBarItem(
+                      const BottomNavigationBarItem(
                         icon: Icon(
                           CupertinoIcons.chart_pie,
                           size: 24,
@@ -120,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: _bodies[_currentIndex],
+      body: _bodies[widget.currentIndex],
     );
   }
 }

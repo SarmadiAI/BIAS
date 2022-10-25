@@ -7,6 +7,7 @@ class DownState extends StatelessWidget {
   final double percentage;
 
   const DownState({
+    super.key,
     required this.percentage,
   });
 
@@ -15,7 +16,7 @@ class DownState extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Icon(
+        const Icon(
           Icons.arrow_downward_outlined,
           color: kBIASRedColor,
           size: 15,

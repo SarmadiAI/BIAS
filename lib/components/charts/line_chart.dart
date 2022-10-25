@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../screens/charts_test.dart';
 import 'chart_data.dart';
 import 'line_chart_box.dart';
 
 class LineChart extends StatelessWidget {
   const LineChart({
+    super.key,
     required this.widget,
   });
 
@@ -27,7 +27,7 @@ class LineChart extends StatelessWidget {
           xValueMapper: (ChartData data, _) => data.x,
           yValueMapper: (ChartData data, _) => data.y[0],
           name: widget.title,
-          dataLabelSettings: DataLabelSettings(isVisible: true),
+          dataLabelSettings: const DataLabelSettings(isVisible: true),
         ),
       ],
     );
